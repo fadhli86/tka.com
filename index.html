@@ -353,10 +353,11 @@ button{font:inherit; color:inherit; cursor:pointer}
 }
 .subj{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:14px; max-width:620px}
 .subj button{text-align:left; display:grid; gap:2px; padding:12px 16px; border-radius:16px; border:2px solid var(--line); background:var(--card)}
-.subj button b{font-family:var(--fd); font-weight:600; font-size:1.1rem}
+.subj button b{font-family:var(--fd); font-weight:600; font-size:1.1rem; display:flex; align-items:center; gap:8px}
 .subj button small{color:var(--muted); font-weight:700; font-size:.82rem}
 .subj button[aria-selected="true"]{border-color:var(--ink); background:var(--ink); color:var(--bg)}
 .subj button[aria-selected="true"] small{color:var(--bg); opacity:.8}
+.matgrid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); max-width:none}
 .worlds.n2{grid-template-columns:repeat(2,minmax(0,1fr)); max-width:620px}
 .teks{font-size:calc(1rem * var(--qs)); line-height:1.75; display:grid; gap:10px; margin-top:6px}
 .teks h4{font-family:var(--fd); font-weight:600; font-size:1.15em; text-align:center; line-height:1.3; margin:0}
@@ -376,6 +377,46 @@ button{font:inherit; color:inherit; cursor:pointer}
 .split.read .ctx{max-height:calc(100vh - 190px); overflow:auto}
 @media (max-width:1060px){ .split.read{grid-template-columns:1fr} .split.read .ctx{max-height:none} }
 @media (max-width:560px){ .worlds.n2{grid-template-columns:1fr} }
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.teks.surat p,.teks.drama p{text-indent:0}
+.teks.drama p{padding-left:4.2em; text-indent:-4.2em}
+.teks.drama p:nth-of-type(1){padding-left:0; text-indent:0}
+.codebox{font-family:ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.9rem; word-break:break-all; background:var(--card2); border:2px dashed var(--ok); border-radius:14px; padding:12px 14px; margin:10px 0; user-select:all}
+.gnote{color:var(--muted); font-weight:600; font-size:.9rem}
+.gact{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.gmsg{margin-top:10px; font-weight:800; color:var(--ok); min-height:1.2em}
+#scr-guru{display:grid; gap:16px}
+#scr-guru[hidden]{display:none}
+#scr-guru textarea{width:100%; font:600 .95rem ui-monospace,Consolas,monospace; border:2px solid var(--line); border-radius:14px; padding:10px 12px; margin:10px 0; background:var(--card2); color:var(--ink); resize:vertical}
+#scr-guru textarea:focus{outline:none; border-color:var(--pri)}
+.gfilter{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+.gfilter label{display:grid; gap:4px; font-weight:800; font-size:.85rem}
+.gfilter select{font:inherit; font-weight:700; padding:10px; border-radius:12px; border:2px solid var(--line); background:var(--card); color:var(--ink); min-width:0}
+.gstat{grid-template-columns:repeat(4,1fr) 1.6fr}
+.stat.kats{display:flex; flex-wrap:wrap; gap:4px 12px; justify-content:center; align-items:center; font-size:.85rem; font-weight:700; color:var(--muted)}
+.stat.kats b{display:inline; font-size:1rem; color:var(--ink)}
+.gtop{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px}
+.gtop h3{margin:0}
+.gtable{overflow-x:auto}
+.rtab{width:100%; font-size:.9rem}
+.rtab td.tl{text-align:left; font-weight:800}
+.sortb{border:0; background:none; font:inherit; font-weight:800; color:inherit; padding:0; cursor:pointer}
+.kpill{font-size:.78rem; font-weight:800; padding:2px 8px; border-radius:999px; white-space:nowrap}
+.k-Istimewa{background:var(--ok-soft); color:var(--ok)}
+.k-Baik{background:var(--soft); color:var(--pri)}
+.k-Memadai{background:var(--warn-soft); color:var(--warn)}
+.k-Kurang{background:var(--bad-soft); color:var(--bad)}
+.xdel{border:0; background:none; color:var(--muted); font-weight:800; width:32px; height:32px; border-radius:8px}
+.xdel:hover{background:var(--bad-soft); color:var(--bad)}
+.ana{display:grid; gap:8px; margin-top:10px}
+.ana-r{display:grid; grid-template-columns:32px minmax(0,1fr) 48px; gap:10px; align-items:center; padding:6px 8px; border-radius:12px}
+.ana-r.low{background:var(--bad-soft)}
+.ana-r > b{font-family:var(--fd); text-align:center}
+.ana-m{display:grid; gap:4px; min-width:0}
+.ana-t{font-size:.82rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ana-s{color:var(--muted); font-weight:600}
+.ana-p{font-weight:800; text-align:right; font-variant-numeric:tabular-nums}
+@media (max-width:720px){ .gfilter{grid-template-columns:1fr 1fr} .gstat{grid-template-columns:repeat(2,1fr)} .stat.kats{grid-column:1/-1} }
 .frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.1; margin:0 2px; font-size:.92em}
 .frac > span:first-child{border-bottom:2px solid currentColor; padding:0 3px}
 .frac > span:last-child{padding:0 3px}
@@ -582,6 +623,8 @@ button{font:inherit; color:inherit; cursor:pointer}
   <section id="scr-exam" class="screen" hidden></section>
   <section id="scr-result" class="screen wrap" hidden></section>
   <section id="scr-review" class="screen wrap" hidden></section>
+  <section id="scr-guru" class="screen wrap" hidden></section>
+  <section id="scr-materi" class="screen wrap" hidden></section>
 </div>
 <div id="modal" class="modal" hidden></div>
 <canvas id="confetti" hidden></canvas>
@@ -960,6 +1003,230 @@ const PAKET_BI=[
 ];
 PAKET.push(...PAKET_BI);
 
+/* ---------- MATEMATIKA PAKET 5 & 6 ---------- */
+function lPattern(){
+  let g='',x=16;const s=18,base=90;
+  for(let n=1;n<=3;n++){
+    for(let i=0;i<=n;i++)g+=`<rect x="${x}" y="${base-(i+1)*s}" width="${s}" height="${s}" class="s-fill"/>`;
+    for(let j=1;j<=n;j++)g+=`<rect x="${x+j*s}" y="${base-s}" width="${s}" height="${s}" class="s-fill2"/>`;
+    g+=T(x+(n+1)*s/2,base+22,`Pola ${n}`,'middle','s-small');x+=(n+1)*s+36;
+  }
+  return fig(svg(`0 0 ${x-20} 120`,g,'Pola persegi berbentuk huruf L',400));
+}
+FIG.para=fig(svg('0 0 340 210',`<polygon points="40,170 232,170 308,62 116,62" class="s-fill"/><line x1="116" y1="62" x2="116" y2="170" class="s-dash"/><polyline points="116,158 128,158 128,170" class="s-dash" style="stroke-dasharray:none"/>${T(136,194,'16 cm')}${T(108,122,'9 cm','end')}${T(282,108,'11 cm','start')}`,'Jajargenjang',360));
+FIG.angle=fig(svg('0 0 400 200',`<line x1="20" y1="170" x2="380" y2="170" class="s-line"/><line x1="200" y1="170" x2="323" y2="84" class="s-line"/><line x1="200" y1="170" x2="187" y2="21" class="s-line"/><circle cx="200" cy="170" r="4" style="fill:var(--ink)"/>${T(262,160,'35°')}${T(224,122,'x')}${T(150,134,'85°')}`,'Tiga sudut pada garis lurus',400));
+FIG.rsemi=fig(svg('0 0 380 230',`<rect x="30" y="30" width="240" height="168" class="s-fill"/><path d="M270 30 A84 84 0 0 1 270 198 Z" class="s-fill2"/><line x1="270" y1="30" x2="270" y2="198" class="s-dash"/>${T(150,22,'20 cm')}${T(22,118,'14 cm','end')}`,'Gabungan persegi panjang dan setengah lingkaran',380));
+
+PAKET.push(
+{id:7,no:5,nama:'Hutan Hitung',warna:'#2B7A4B',art:'tree',soal:[
+{d:'B',l:1,q:'Angka 8 pada bilangan <b>258.914</b> menempati nilai tempat ....',o:['ribuan','puluh ribuan','ratusan','ratus ribuan'],p:'258.914: 2 ratus ribuan, 5 puluh ribuan, <b>8 ribuan</b>, 9 ratusan, 1 puluhan, 4 satuan.'},
+{d:'B',l:2,q:'Sebuah pabrik roti memproduksi 1.275 roti setiap hari. Banyak roti yang diproduksi selama 2 minggu adalah ....',o:['17.850 roti','17.580 roti','8.925 roti','15.300 roti'],p:'2 minggu = 14 hari. Banyak roti = 1.275 × 14 = <b>17.850 roti</b>.'},
+{d:'B',l:2,t:'mc',q:'Pak Budi membeli 3 kardus air mineral. Setiap kardus berisi 48 botol. Air mineral itu dibagikan kepada peserta lomba, masing-masing mendapat 2 botol. Pernyataan yang benar adalah ....',o:['Jumlah seluruh botol air mineral 144 botol.','Air mineral cukup untuk 72 peserta.','Jika ada 80 peserta, air mineral kurang 16 botol.','Setiap kardus cukup untuk 25 peserta.'],k:[0,1,2],p:'Jumlah botol = 3 × 48 = <b>144</b>. Cukup untuk 144 : 2 = <b>72 peserta</b>. Untuk 80 peserta perlu 160 botol, jadi kurang 160 − 144 = <b>16 botol</b>. Satu kardus (48 botol) cukup untuk 24 peserta, bukan 25.'},
+{d:'B',l:1,q:'Pecahan {7/20} jika diubah ke bentuk persen adalah ....',o:['35%','14%','72%','3,5%'],p:'{7/20} = {35/100} (pembilang dan penyebut dikali 5) = <b>35%</b>.'},
+{d:'B',l:2,q:'Hasil dari 0,75 + {2/5} − 15% adalah ....',o:['1','0,9','1,1','1,3'],p:'Ubah ke desimal: {2/5} = 0,4 dan 15% = 0,15. Jadi 0,75 + 0,4 − 0,15 = <b>1</b>.'},
+{d:'B',l:2,q:'Kakak memiliki pita sepanjang 12 m. Sebanyak {1/3} bagian dipakai untuk hiasan kelas dan {1/4} bagian untuk membungkus kado. Sisa pita kakak adalah ....',o:['5 m','7 m','4 m','6 m'],p:'Hiasan = {1/3} × 12 = 4 m, kado = {1/4} × 12 = 3 m. Sisa = 12 − 4 − 3 = <b>5 m</b>.'},
+{d:'B',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut!',s:[['{3/8} &lt; {2/5}',1],['1{1/4} = 1,25',1],['{5/6} &gt; {7/8}',0],['2,5% = {1/40}',1]],p:'• {3/8} = 0,375 dan {2/5} = 0,4, jadi {3/8} &lt; {2/5} (<b>Benar</b>).<br>• 1{1/4} = 1 + 0,25 = 1,25 (<b>Benar</b>).<br>• {5/6} ≈ 0,83 dan {7/8} = 0,875, jadi {5/6} lebih kecil (<b>Salah</b>).<br>• 2,5% = 0,025 = {25/1000} = {1/40} (<b>Benar</b>).'},
+{d:'B',l:2,q:'Harga sebuah sepeda Rp1.250.000. Ayah membayar uang muka 40%, sisanya dicicil 5 kali dengan besar yang sama. Besar setiap cicilan adalah ....',o:['Rp150.000','Rp100.000','Rp250.000','Rp125.000'],p:'Sisa yang dicicil = 60% × Rp1.250.000 = Rp750.000. Setiap cicilan = Rp750.000 : 5 = <b>Rp150.000</b>.'},
+{d:'B',l:3,q:'Lampu A berkedip setiap 8 detik dan lampu B setiap 12 detik. Mula-mula keduanya berkedip bersamaan. Dalam 2 menit berikutnya, kedua lampu berkedip bersamaan lagi sebanyak ....',o:['5 kali','4 kali','6 kali','10 kali'],p:'KPK dari 8 dan 12 adalah 24, jadi keduanya berkedip bersamaan setiap 24 detik. 2 menit = 120 detik, sehingga 120 : 24 = <b>5 kali</b>.'},
+{d:'B',l:2,q:'Dua potong kain batik panjangnya 84 cm dan 126 cm. Keduanya dipotong sama panjang sepanjang-panjangnya tanpa sisa. Panjang setiap potongan adalah ....',o:['42 cm','21 cm','14 cm','252 cm'],p:'Panjang potongan = FPB dari 84 dan 126. 84 = 2² × 3 × 7 dan 126 = 2 × 3² × 7, sehingga FPB = 2 × 3 × 7 = <b>42 cm</b>.'},
+{d:'B',l:2,t:'bs',q:'Suhu kota A pada malam hari −3°C dan siang hari 28°C. Suhu kota B pada malam hari 2°C dan siang hari 25°C.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Selisih suhu siang dan malam di kota A adalah 31°C.',1],['Selisih suhu siang dan malam di kota B adalah 27°C.',0],['Pada malam hari, kota A lebih dingin daripada kota B.',1],['Suhu siang hari kota B lebih tinggi daripada kota A.',0]],p:'Kota A: 28 − (−3) = <b>31°C</b> (Benar). Kota B: 25 − 2 = 23°C, bukan 27°C (Salah). −3°C lebih rendah daripada 2°C, jadi kota A lebih dingin (Benar). Siang hari 25°C &lt; 28°C, jadi kota B lebih rendah (Salah).'},
+{d:'B',l:3,t:'mc',q:'Bilangan berikut yang merupakan kelipatan 6 sekaligus faktor dari 72 adalah ....',o:['12','18','24','16','30'],k:[0,1,2],p:'12, 18, dan 24 habis dibagi 6 dan juga habis membagi 72 (72 : 12 = 6, 72 : 18 = 4, 72 : 24 = 3). 16 bukan kelipatan 6, sedangkan 30 bukan faktor dari 72.'},
+{d:'A',l:2,q:'Perhatikan pola bilangan berikut.<br><b>5, 8, 14, 23, 35, ...</b><br>Bilangan berikutnya adalah ....',o:['50','47','48','53'],p:'Selisih berurutan: 3, 6, 9, 12, lalu 15. Bilangan berikutnya = 35 + 15 = <b>50</b>.'},
+{d:'A',l:1,q:'Nilai p yang memenuhi 72 : p − 5 = 3 adalah ....',o:['9','8','12','18'],p:'72 : p = 3 + 5 = 8, sehingga p = 72 : 8 = <b>9</b>.'},
+{d:'A',l:2,t:'bs',q:'Perbandingan banyak siswa laki-laki dan perempuan di kelas 6 adalah 5 : 4. Banyak siswa perempuan 16 orang.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Banyak siswa laki-laki 20 orang.',1],['Jumlah seluruh siswa 36 orang.',1],['Selisih banyak siswa laki-laki dan perempuan 5 orang.',0],['Jika 2 siswa laki-laki pindah sekolah, perbandingannya menjadi 9 : 8.',1]],p:'4 bagian = 16, jadi 1 bagian = 4. Laki-laki = 5 × 4 = <b>20</b> (Benar). Jumlah = 20 + 16 = <b>36</b> (Benar). Selisih = 4 orang, bukan 5 (Salah). Jika 2 laki-laki pindah: 18 : 16 = <b>9 : 8</b> (Benar).'},
+{d:'A',l:2,q:'Jarak rumah Beni ke sekolah 2,4 km. Pada denah, jarak itu digambar sepanjang 12 cm. Skala denah tersebut adalah ....',o:['1 : 20.000','1 : 2.000','1 : 200.000','1 : 24.000'],p:'2,4 km = 240.000 cm. Skala = 12 : 240.000 = <b>1 : 20.000</b>.'},
+{d:'A',l:3,q:'Perhatikan pola susunan persegi berikut! Banyak persegi pada pola ke-20 adalah ....',f:lPattern(),o:['41','40','42','60'],p:'Pola 1 = 3, pola 2 = 5, pola 3 = 7 persegi. Setiap pola bertambah 2, sehingga banyak persegi = 2 × n + 1. Pola ke-20 = 2 × 20 + 1 = <b>41</b>.'},
+{d:'G',l:1,q:'Sebuah bangun ruang mempunyai 6 sisi berbentuk persegi panjang, 12 rusuk, dan 8 titik sudut. Bangun ruang tersebut adalah ....',o:['balok','kubus','prisma segitiga','limas segi empat'],p:'Bangun dengan 6 sisi persegi panjang, 12 rusuk, dan 8 titik sudut adalah <b>balok</b>. Sisi kubus berbentuk persegi, prisma segitiga hanya punya 5 sisi, dan limas segi empat punya 5 sisi.'},
+{d:'G',l:3,t:'mc',q:'Sebuah kolam ikan berbentuk persegi panjang berukuran 8 m × 5 m. Di sekeliling kolam dibuat jalan selebar 1 m. Pernyataan yang benar adalah ....',o:['Luas kolam 40 m².','Ukuran kolam beserta jalannya 10 m × 7 m.','Luas jalan 30 m².','Keliling luar jalan 30 m.'],k:[0,1,2],p:'Luas kolam = 8 × 5 = <b>40 m²</b>. Jalan 1 m di setiap sisi menambah 2 m pada panjang dan lebar: <b>10 m × 7 m</b>. Luas jalan = 70 − 40 = <b>30 m²</b>. Keliling luar = 2 × (10 + 7) = 34 m, bukan 30 m.'},
+{d:'G',l:2,q:'Perhatikan gambar jajargenjang berikut! Luas jajargenjang tersebut adalah ....',f:FIG.para,o:['144 cm²','176 cm²','72 cm²','54 cm²'],p:'Luas jajargenjang = alas × tinggi = 16 × 9 = <b>144 cm²</b>. Sisi miring 11 cm tidak dipakai untuk menghitung luas (54 cm adalah kelilingnya).'},
+{d:'G',l:2,q:'Sebuah jam dinding berbentuk lingkaran dengan jari-jari 21 cm. Keliling jam dinding tersebut adalah .... (π = {22/7})',o:['132 cm','66 cm','1.386 cm','264 cm'],p:'Keliling = 2 × π × r = 2 × {22/7} × 21 = <b>132 cm</b>.'},
+{d:'G',l:2,t:'bs',q:'Sebuah kotak berbentuk kubus dengan panjang rusuk 15 cm.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Volume kotak 3.375 cm³.',1],['Luas permukaan kotak 1.350 cm².',1],['Panjang seluruh rusuk kotak 180 cm.',1],['Jika rusuknya diperkecil menjadi 5 cm, volumenya menjadi sepertiga volume semula.',0]],p:'Volume = 15 × 15 × 15 = <b>3.375 cm³</b>. Luas permukaan = 6 × 15 × 15 = <b>1.350 cm²</b>. Panjang rusuk = 12 × 15 = <b>180 cm</b>. Rusuk 5 cm menghasilkan volume 125 cm³, yaitu {1/27} volume semula, bukan sepertiga (Salah).'},
+{d:'G',l:2,q:'Sebuah tangki air berbentuk balok berukuran 1,2 m × 1 m × 1,5 m berisi air penuh. Sebanyak 450 liter air digunakan untuk menyiram tanaman. Sisa air dalam tangki adalah ....',o:['1.350 liter','1.800 liter','1.750 liter','1.300 liter'],p:'Volume tangki = 1,2 × 1 × 1,5 = 1,8 m³ = 1.800 liter. Sisa air = 1.800 − 450 = <b>1.350 liter</b>.'},
+{d:'G',l:1,q:'Sebuah film dimulai pukul 13.25 dan berlangsung selama 1 jam 55 menit. Film tersebut selesai pukul ....',o:['15.20','14.20','15.10','15.30'],p:'13.25 + 1 jam = 14.25. 14.25 + 55 menit = <b>15.20</b>.'},
+{d:'G',l:2,t:'mc',q:'Ukuran berat berikut yang sama dengan 2,5 kuintal adalah ....',o:['250 kg','2.500 ons','0,25 ton','25 kg'],k:[0,1,2],p:'1 kuintal = 100 kg, jadi 2,5 kuintal = <b>250 kg</b>. 250 kg = 2.500 ons (1 kg = 10 ons) = 0,25 ton (1 ton = 1.000 kg). 25 kg hanya 0,25 kuintal.'},
+{d:'G',l:2,q:'Perhatikan gambar! Tiga sudut terletak pada satu garis lurus. Besar sudut x adalah ....',f:FIG.angle,o:['60°','50°','120°','70°'],p:'Sudut-sudut pada garis lurus berjumlah 180°. x = 180° − 35° − 85° = <b>60°</b>.'},
+{d:'G',l:3,t:'mc',q:'Pada bidang koordinat terdapat titik A(1, 2), B(5, 2), C(5, 5), dan D(1, 5) seperti gambar. Pernyataan yang benar adalah ....',f:coord(6,6,[['A',1,2],['B',5,2,12],['C',5,5,12],['D',1,5]],true,'Bangun ABCD'),o:['ABCD berbentuk persegi panjang.','Panjang AB adalah 4 satuan.','Luas ABCD adalah 12 satuan luas.','Keliling ABCD adalah 16 satuan.'],k:[0,1,2],p:'AB = 5 − 1 = <b>4 satuan</b> dan BC = 5 − 2 = 3 satuan, dengan sudut siku-siku, sehingga ABCD <b>persegi panjang</b>. Luas = 4 × 3 = <b>12 satuan luas</b>. Keliling = 2 × (4 + 3) = 14 satuan, bukan 16.'},
+{d:'D',l:2,q:'Diagram batang berikut menunjukkan banyak siswa yang membawa bekal makanan selama lima hari. Banyak siswa yang membawa bekal 6 orang lebih banyak daripada hari Senin terjadi pada hari ....',f:barChart(['Senin','Selasa','Rabu','Kamis','Jumat'],[18,24,21,15,27],{max:30,step:3,lab:6,unit:'Banyak siswa',title:'Siswa yang Membawa Bekal'}),o:['Selasa','Rabu','Jumat','Kamis'],p:'Senin = 18 siswa. 18 + 6 = 24 siswa, yaitu hari <b>Selasa</b>.'},
+{d:'D',l:2,t:'bs',q:'Banyak buku yang dibaca 8 siswa selama sebulan adalah sebagai berikut.<br><b>3, 5, 4, 6, 5, 2, 5, 6</b><br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Rata-rata banyak buku yang dibaca adalah 4,5 buku.',1],['Modus data tersebut adalah 6.',0],['Median data tersebut adalah 5.',1],['Ada 3 siswa yang membaca lebih dari 5 buku.',0]],p:'Jumlah = 36, rata-rata = 36 : 8 = <b>4,5</b> (Benar). Yang paling sering muncul adalah 5 (tiga kali), jadi modus 5, bukan 6 (Salah). Data urut: 2, 3, 4, 5, 5, 5, 6, 6. Median = (5 + 5) : 2 = <b>5</b> (Benar). Lebih dari 5 hanya 6 dan 6, yaitu 2 siswa (Salah).'},
+{d:'D',l:3,q:'Sebuah dadu dilempar satu kali. Pernyataan yang benar adalah ....',o:['Kemungkinan muncul mata dadu genap sama dengan kemungkinan muncul mata dadu ganjil.','Mata dadu 7 mungkin muncul.','Mata dadu lebih dari 4 lebih mungkin muncul daripada mata dadu kurang dari 3.','Mata dadu 1 pasti muncul.'],p:'Mata dadu genap (2, 4, 6) dan ganjil (1, 3, 5) sama-sama 3 kemungkinan, jadi <b>kemungkinannya sama</b>. Mata dadu 7 tidak ada. Lebih dari 4 (5, 6) dan kurang dari 3 (1, 2) sama-sama 2 kemungkinan. Mata dadu 1 tidak pasti muncul.'},
+]},
+{id:8,no:6,nama:'Roket Angka',warna:'#A0522D',art:'rocket',soal:[
+{d:'B',l:1,q:'Bilangan "lima ratus dua ribu tiga ratus enam" ditulis ....',o:['502.306','520.306','502.360','5.002.306'],p:'Lima ratus dua ribu = 502.000, ditambah tiga ratus enam = 306. Hasilnya <b>502.306</b>.'},
+{d:'B',l:1,q:'Hasil dari 8.400 : 35 + 16 × 25 adalah ....',o:['640','6.400','624','656'],p:'Pembagian dan perkalian dahulu: 8.400 : 35 = 240 dan 16 × 25 = 400. Jumlahnya 240 + 400 = <b>640</b>.'},
+{d:'B',l:2,q:'Sebuah perpustakaan mempunyai 2.520 buku yang disusun sama banyak di 9 rak. Setiap rak terdiri atas 4 susun yang isinya sama banyak. Banyak buku pada setiap susun adalah ....',o:['70 buku','280 buku','63 buku','90 buku'],p:'Buku setiap rak = 2.520 : 9 = 280. Buku setiap susun = 280 : 4 = <b>70 buku</b>.'},
+{d:'B',l:1,t:'mc',q:'Bilangan prima yang terletak di antara 20 dan 40 adalah ....',o:['23','29','37','27','39'],k:[0,1,2],p:'23, 29, dan 37 hanya habis dibagi 1 dan bilangan itu sendiri, jadi termasuk <b>bilangan prima</b>. 27 = 3 × 9 dan 39 = 3 × 13 bukan bilangan prima.'},
+{d:'B',l:2,q:'Hasil dari 4{1/2} : {3/4} × {2/3} adalah ....',o:['4','6','2{1/4}','9'],p:'Kerjakan dari kiri: 4{1/2} : {3/4} = {9/2} × {4/3} = 6. Lalu 6 × {2/3} = <b>4</b>.'},
+{d:'B',l:1,q:'Ibu membeli 2{1/2} kg telur dan 1{3/4} kg daging. Berat seluruh belanjaan ibu adalah ....',o:['4{1/4} kg','3{1/4} kg','4{3/4} kg','3{3/4} kg'],p:'2{1/2} + 1{3/4} = 2{2/4} + 1{3/4} = 3{5/4} = <b>4{1/4} kg</b>.'},
+{d:'B',l:2,t:'bs',q:'Sebuah toko memberikan diskon 30% untuk semua barang. Harga awal sebuah tas Rp200.000 dan harga awal sepasang sepatu Rp150.000.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Harga tas setelah diskon Rp140.000.',1],['Besar diskon sepatu Rp45.000.',1],['Jika membeli tas dan sepatu, uang yang dibayar Rp245.000.',1],['Dengan uang Rp100.000, sepatu dapat dibeli setelah diskon.',0]],p:'Tas: 200.000 − 60.000 = <b>Rp140.000</b>. Diskon sepatu = 30% × 150.000 = <b>Rp45.000</b>, harga sepatu Rp105.000. Tas + sepatu = 140.000 + 105.000 = <b>Rp245.000</b>. Rp100.000 kurang dari Rp105.000, jadi tidak cukup (Salah).'},
+{d:'B',l:2,q:'Dalam sebuah kotak terdapat 60 kelereng. Sebanyak 25% berwarna merah, {1/3} bagian berwarna biru, dan sisanya berwarna hijau. Banyak kelereng hijau adalah ....',o:['25 butir','35 butir','20 butir','15 butir'],p:'Merah = 25% × 60 = 15. Biru = {1/3} × 60 = 20. Hijau = 60 − 15 − 20 = <b>25 butir</b>.'},
+{d:'B',l:1,q:'Hasil dari 2,35 + 1,8 − 0,95 adalah ....',o:['3,2','3,1','2,3','4,1'],p:'2,35 + 1,80 = 4,15. Lalu 4,15 − 0,95 = <b>3,20</b> atau 3,2.'},
+{d:'B',l:3,q:'Pak Amin ronda setiap 4 hari, Pak Beni setiap 5 hari, dan Pak Candra setiap 6 hari. Mereka ronda bersama pada tanggal 1 Juli. Mereka akan ronda bersama lagi pada tanggal ....',o:['30 Agustus','31 Agustus','29 Agustus','1 September'],p:'KPK dari 4, 5, dan 6 adalah 60. Enam puluh hari setelah 1 Juli: sisa hari di bulan Juli = 30 hari (sampai 31 Juli), sisanya 30 hari di bulan Agustus. Jadi mereka ronda bersama lagi pada <b>30 Agustus</b>.'},
+{d:'B',l:2,t:'mc',q:'Bu Sinta memiliki 48 donat cokelat dan 36 donat keju. Donat-donat itu dimasukkan ke dalam kotak sebanyak-banyaknya dengan isi setiap kotak sama. Pernyataan yang benar adalah ....',o:['Banyak kotak yang diperlukan 12 kotak.','Setiap kotak berisi 4 donat cokelat.','Setiap kotak berisi 3 donat keju.','Setiap kotak berisi 6 donat.'],k:[0,1,2],p:'Banyak kotak = FPB dari 48 dan 36 = <b>12</b>. Setiap kotak berisi 48 : 12 = <b>4 donat cokelat</b> dan 36 : 12 = <b>3 donat keju</b>, jadi 7 donat per kotak, bukan 6.'},
+{d:'B',l:3,q:'Ayah memiliki uang Rp500.000. Sebanyak {2/5} bagian uangnya digunakan untuk membeli pupuk dan 30% untuk membeli bibit. Sisa uang ayah adalah ....',o:['Rp150.000','Rp350.000','Rp200.000','Rp100.000'],p:'Pupuk = {2/5} × 500.000 = 200.000. Bibit = 30% × 500.000 = 150.000. Sisa = 500.000 − 200.000 − 150.000 = <b>Rp150.000</b>.'},
+{d:'A',l:1,q:'Perhatikan pola bilangan berikut.<br><b>2, 6, 18, 54, ...</b><br>Bilangan ke-6 pada pola tersebut adalah ....',o:['486','162','1.458','108'],p:'Setiap bilangan dikali 3: 2, 6, 18, 54, 162, <b>486</b>.'},
+{d:'A',l:2,q:'Harga 4 pensil dan 2 buku adalah Rp22.000. Harga 1 buku Rp5.000. Harga 1 pensil adalah ....',o:['Rp3.000','Rp4.000','Rp2.500','Rp5.500'],p:'Harga 2 buku = Rp10.000. Harga 4 pensil = 22.000 − 10.000 = 12.000. Harga 1 pensil = 12.000 : 4 = <b>Rp3.000</b>.'},
+{d:'A',l:3,t:'mc',q:'Persediaan makanan ternak cukup untuk 20 ekor sapi selama 15 hari. Pernyataan yang benar adalah ....',o:['Jika sapi menjadi 30 ekor, makanan cukup untuk 10 hari.','Jika sapi menjadi 10 ekor, makanan cukup untuk 30 hari.','Jika sapi menjadi 25 ekor, makanan cukup untuk 12 hari.','Jika banyak sapi bertambah, makanan cukup untuk waktu yang lebih lama.'],k:[0,1,2],p:'Ini perbandingan berbalik nilai: 20 × 15 = 300. 300 : 30 = <b>10 hari</b>, 300 : 10 = <b>30 hari</b>, 300 : 25 = <b>12 hari</b>. Makin banyak sapi, makanan justru makin cepat habis.'},
+{d:'A',l:2,q:'Sinta dapat mengetik 45 kata setiap menit. Waktu yang diperlukan Sinta untuk mengetik 1.080 kata adalah ....',o:['24 menit','20 menit','25 menit','30 menit'],p:'Waktu = 1.080 : 45 = <b>24 menit</b>.'},
+{d:'A',l:3,t:'bs',q:'Di sebuah gedung pertunjukan, baris pertama terdapat 12 kursi, baris kedua 15 kursi, baris ketiga 18 kursi, dan seterusnya selalu bertambah 3 kursi.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Baris ke-5 terdapat 24 kursi.',1],['Baris ke-10 terdapat 42 kursi.',0],['Jumlah kursi pada lima baris pertama 90 kursi.',1],['Banyak kursi pada setiap baris selalu kelipatan 3.',1]],p:'Baris 1–5: 12, 15, 18, 21, <b>24</b> (Benar). Baris ke-10 = 12 + 9 × 3 = 39, bukan 42 (Salah). 12 + 15 + 18 + 21 + 24 = <b>90</b> (Benar). Semua bilangan pola (12, 15, 18, ...) habis dibagi 3 (Benar).'},
+{d:'G',l:1,q:'Jaring-jaring sebuah bangun ruang terdiri atas 2 lingkaran dan 1 persegi panjang. Bangun ruang tersebut adalah ....',o:['tabung','kerucut','prisma segitiga','bola'],p:'Dua lingkaran menjadi alas dan tutup, sedangkan persegi panjang menjadi selimut. Bangun itu adalah <b>tabung</b>.'},
+{d:'G',l:1,t:'bs',q:'Tentukan benar atau salah setiap pernyataan tentang sifat bangun datar berikut!',s:[['Persegi panjang memiliki 2 simetri lipat.',1],['Semua sudut pada jajargenjang berbentuk siku-siku.',0],['Trapesium memiliki sepasang sisi sejajar.',1],['Layang-layang memiliki 4 sisi yang sama panjang.',0]],p:'Persegi panjang punya 2 simetri lipat (Benar). Sudut jajargenjang umumnya tidak siku-siku (Salah). Trapesium punya sepasang sisi sejajar (Benar). Layang-layang punya dua pasang sisi yang sama panjang, bukan empat sisi sama panjang (Salah).'},
+{d:'G',l:2,q:'Luas sebuah persegi panjang 96 cm² dan lebarnya 8 cm. Keliling persegi panjang tersebut adalah ....',o:['40 cm','20 cm','48 cm','104 cm'],p:'Panjang = 96 : 8 = 12 cm. Keliling = 2 × (12 + 8) = <b>40 cm</b>.'},
+{d:'G',l:3,q:'Perhatikan gambar bangun gabungan persegi panjang dan setengah lingkaran berikut! Luas bangun tersebut adalah .... (π = {22/7})',f:FIG.rsemi,o:['357 cm²','434 cm²','280 cm²','308 cm²'],p:'Luas persegi panjang = 20 × 14 = 280 cm². Setengah lingkaran berdiameter 14 cm (jari-jari 7 cm): {1/2} × {22/7} × 7 × 7 = 77 cm². Luas gabungan = 280 + 77 = <b>357 cm²</b>.'},
+{d:'G',l:2,t:'mc',q:'Sebuah tabung memiliki jari-jari alas 7 cm dan tinggi 20 cm (π = {22/7}). Pernyataan yang benar adalah ....',o:['Luas alas tabung 154 cm².','Volume tabung 3.080 cm³.','Keliling alas tabung 44 cm.','Diameter alas tabung 7 cm.'],k:[0,1,2],p:'Luas alas = {22/7} × 7 × 7 = <b>154 cm²</b>. Volume = 154 × 20 = <b>3.080 cm³</b>. Keliling alas = {22/7} × 14 = <b>44 cm</b>. Diameter = 2 × 7 = 14 cm, bukan 7 cm.'},
+{d:'G',l:3,q:'Sebuah bak berbentuk balok berukuran panjang 80 cm, lebar 50 cm, dan tinggi 60 cm. Bak diisi air dari keran yang mengalirkan 10 liter air setiap menit. Waktu yang diperlukan untuk mengisi bak sampai penuh adalah ....',o:['24 menit','2,4 menit','240 menit','40 menit'],p:'Volume bak = 80 × 50 × 60 = 240.000 cm³ = 240 liter. Waktu = 240 : 10 = <b>24 menit</b>.'},
+{d:'G',l:2,t:'bs',q:'Jarak kota P ke kota Q adalah 150 km. Sebuah bus berangkat dari kota P pukul 07.30 dan tiba di kota Q pukul 10.00.<br>Tentukan benar atau salah setiap pernyataan berikut!',s:[['Lama perjalanan bus 2 jam 30 menit.',1],['Kecepatan rata-rata bus 60 km/jam.',1],['Jika kecepatan rata-ratanya 75 km/jam, bus tiba pukul 09.30.',1],['Dalam 1 jam pertama, bus menempuh 75 km.',0]],p:'07.30 sampai 10.00 = <b>2 jam 30 menit</b> = 2,5 jam. Kecepatan = 150 : 2,5 = <b>60 km/jam</b>. Dengan 75 km/jam, waktunya 150 : 75 = 2 jam, tiba pukul <b>09.30</b>. Dengan kecepatan 60 km/jam, dalam 1 jam bus menempuh 60 km, bukan 75 km (Salah).'},
+{d:'G',l:2,q:'Hasil dari 2 jam 15 menit + 45 menit + 180 detik jika dinyatakan dalam menit adalah ....',o:['183 menit','180 menit','198 menit','195 menit'],p:'2 jam 15 menit = 135 menit. 180 detik = 3 menit. Jumlah = 135 + 45 + 3 = <b>183 menit</b>.'},
+{d:'G',l:2,q:'Pada segitiga sama kaki PQR, sudut puncak P besarnya 40°. Besar sudut Q adalah ....',o:['70°','140°','40°','50°'],p:'Dua sudut alas segitiga sama kaki sama besar. ∠Q = ∠R = (180° − 40°) : 2 = <b>70°</b>.'},
+{d:'G',l:3,q:'Titik K(2, 3) digeser 3 satuan ke kanan, lalu 2 satuan ke bawah, kemudian 1 satuan ke kiri. Koordinat akhir titik K adalah ....',o:['(4, 1)','(5, 1)','(4, 5)','(6, 1)'],p:'Nilai x: 2 + 3 − 1 = 4. Nilai y: 3 − 2 = 1. Koordinat akhir <b>(4, 1)</b>.'},
+{d:'D',l:2,t:'bs',q:'Diagram lingkaran berikut menunjukkan mata pencaharian 400 warga sebuah desa.<br>Tentukan benar atau salah setiap pernyataan berikut!',f:pieChart([{t:'Petani',p:40,c:'#128A58'},{t:'Pedagang',p:25,c:'#E8622A'},{t:'Nelayan',p:20,c:'#2F6FEB'},{t:'Guru',p:15,c:'#C2366A'}],'Mata Pencaharian Warga'),s:[['Banyak warga yang bekerja sebagai petani 160 orang.',1],['Banyak warga yang bekerja sebagai nelayan dan guru 140 orang.',1],['Pedagang lebih banyak 30 orang daripada nelayan.',0],['Guru merupakan pekerjaan dengan jumlah warga paling sedikit.',1]],p:'Petani = 40% × 400 = <b>160</b> (Benar). Nelayan + guru = 35% × 400 = <b>140</b> (Benar). Pedagang 100 dan nelayan 80, selisihnya 20, bukan 30 (Salah). Guru 15% paling kecil (Benar).'},
+{d:'D',l:2,t:'mc',q:'Tabel berikut menunjukkan nilai ulangan matematika siswa kelas 6. Pernyataan yang sesuai dengan tabel adalah ....',f:fig('<table class="dtab"><thead><tr><th>Nilai</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody><tr><th>Banyak siswa</th><td>3</td><td>5</td><td>8</td><td>3</td><td>1</td></tr></tbody></table>','Nilai Ulangan Matematika'),o:['Banyak siswa seluruhnya 20 orang.','Modus data tersebut adalah 8.','Siswa yang mendapat nilai di atas 7 ada 12 orang.','Rata-rata nilai siswa adalah 8.'],k:[0,1,2],p:'Jumlah siswa = 3 + 5 + 8 + 3 + 1 = <b>20</b>. Nilai paling banyak muncul adalah <b>8</b>. Di atas 7: 8 + 3 + 1 = <b>12</b> siswa. Rata-rata = (18 + 35 + 64 + 27 + 10) : 20 = 154 : 20 = 7,7, bukan 8.'},
+{d:'D',l:3,q:'Di dalam kantong terdapat 4 bola merah, 6 bola biru, dan 2 bola putih. Sebuah bola diambil secara acak. Pernyataan yang paling tepat adalah ....',o:['Bola biru paling mungkin terambil.','Kemungkinan terambil bola merah sama dengan bola biru.','Bola putih tidak mungkin terambil.','Kemungkinan terambil bola merah lebih besar daripada bola biru.'],p:'Bola biru paling banyak (6 dari 12), sehingga <b>paling mungkin terambil</b>. Merah (4) lebih sedikit daripada biru, dan bola putih tetap mungkin terambil walaupun hanya 2.'},
+]}
+);
+
+/* ---------- BAHASA INDONESIA PAKET 3 & 4 ---------- */
+Object.assign(TEKS,{
+d1:`<article class="teks"><h4>Warga Desa Sukamaju Tanam 1.000 Pohon Mangrove</h4>
+<p><b>Demak</b> – Ratusan warga Desa Sukamaju bersama pelajar SD dan SMP menanam 1.000 bibit pohon mangrove di pantai desa, Minggu (8/3/2026). Kegiatan ini diprakarsai oleh kelompok nelayan setempat.</p>
+<p>Menurut Pak Darmo, ketua kelompok nelayan, pantai desa terus terkikis ombak. "Dalam lima tahun, garis pantai mundur hampir 20 meter. Beberapa tambak warga sudah hilang," ujarnya.</p>
+<p>Mangrove dipilih karena akarnya dapat menahan ombak dan lumpur. Selain itu, hutan mangrove menjadi tempat berkembang biak ikan, kepiting, dan udang.</p>
+<p>Para pelajar diberi tugas merawat bibit selama tiga bulan pertama. Setiap bibit diberi papan kecil bertuliskan nama penanamnya.</p></article>`,
+d2:`<article class="teks"><h4>Layang-Layang Raka</h4>
+<p>Raka memandangi layang-layangnya yang tersangkut di pohon jambu Pak Harun. Layang-layang itu buatannya sendiri dari bambu dan kertas minyak berwarna merah.</p>
+<p>"Panjat saja, Rak. Pak Harun sedang pergi," bisik Andi.</p>
+<p>Raka ragu. Ia teringat pesan ayahnya untuk selalu meminta izin sebelum mengambil sesuatu dari tempat orang lain. Akhirnya, Raka memutuskan menunggu di depan pagar.</p>
+<p>Sore harinya, Pak Harun pulang. Raka segera menghampiri dan meminta izin. Pak Harun tersenyum, lalu mengambilkan layang-layang itu dengan galah panjang. "Terima kasih sudah meminta izin, Nak. Ini, bawa juga beberapa jambu untuk ibumu," katanya.</p></article>`,
+d3:`<article class="teks"><h4>Kandungan Gizi dalam 100 Gram Buah</h4>
+<div class="fig-wrap"><table class="dtab"><thead><tr><th>Buah</th><th>Vitamin C (mg)</th><th>Serat (g)</th><th>Energi (kkal)</th></tr></thead><tbody>
+<tr><td>Jambu biji</td><td>228</td><td>5,4</td><td>68</td></tr>
+<tr><td>Jeruk</td><td>53</td><td>2,4</td><td>47</td></tr>
+<tr><td>Pepaya</td><td>61</td><td>1,7</td><td>43</td></tr>
+<tr><td>Pisang</td><td>9</td><td>2,6</td><td>89</td></tr>
+<tr><td>Apel</td><td>5</td><td>2,4</td><td>52</td></tr>
+</tbody></table></div></article>`,
+d4:`<article class="teks puisi"><h4>Laut</h4>
+<p>Ombak berlari ke tepi pantai<br>Membawa buih putih berderai<br>Camar menari di langit biru<br>Menyambut pagi yang baru</p>
+<p>Wahai laut yang luas membentang<br>Tempat nelayan mencari ikan<br>Akan kujaga engkau selalu<br>Agar tetap bersih dan biru</p></article>`,
+d5:`<article class="teks"><h4>Cara Mencuci Tangan dengan Sabun</h4>
+<ol><li>Basahi kedua tangan dengan air mengalir.</li>
+<li>Tuangkan sabun secukupnya ke telapak tangan.</li>
+<li>Gosok kedua telapak tangan dan punggung tangan.</li>
+<li>Gosok sela-sela jari dan ujung-ujung jari.</li>
+<li>Gosok ibu jari secara berputar.</li>
+<li>Bilas kedua tangan dengan air mengalir.</li>
+<li>Keringkan tangan dengan handuk bersih atau tisu.</li></ol>
+<p>Lakukan seluruh langkah selama 40–60 detik.</p></article>`,
+d6:`<article class="teks"><h4>Lebah dan Kupu-Kupu</h4>
+<p>Kupu-kupu suka memamerkan sayapnya yang berwarna-warni. "Lihatlah sayapku! Semua bunga senang kukunjungi," katanya kepada Lebah. Lebah hanya tersenyum dan terus bekerja mengumpulkan sari bunga.</p>
+<p>"Untuk apa bekerja keras setiap hari? Lebih baik bermain bersamaku," ejek Kupu-kupu.</p>
+<p>Musim hujan pun tiba. Hujan turun berhari-hari sehingga bunga-bunga rusak. Kupu-kupu kelaparan dan kedinginan. Ia teringat pada Lebah, lalu terbang dengan lemah ke sarang lebah.</p>
+<p>Lebah menyambutnya dan memberinya sedikit madu. "Terima kasih, Lebah. Maafkan aku yang dulu mengejekmu," kata Kupu-kupu dengan malu. Sejak saat itu, Kupu-kupu ikut membantu Lebah mengumpulkan sari bunga.</p></article>`,
+d7:`<article class="teks surat"><p style="text-align:right">Jakarta, 2 Mei 2026</p>
+<p>Kepada<br>Yth. Bapak/Ibu Orang Tua/Wali Murid Kelas 6<br>SD Pelita Bangsa</p>
+<p>Dengan hormat,</p>
+<p>Sehubungan dengan akan dilaksanakannya Tes Kemampuan Akademik (TKA), kami mengundang Bapak/Ibu untuk menghadiri pertemuan orang tua/wali murid yang akan dilaksanakan pada:</p>
+<dl><dt>hari/tanggal</dt><dd>Sabtu, 9 Mei 2026</dd><dt>waktu</dt><dd>08.00–10.00 WIB</dd><dt>tempat</dt><dd>Aula SD Pelita Bangsa</dd><dt>acara</dt><dd>Penjelasan persiapan TKA dan pembagian jadwal belajar tambahan</dd></dl>
+<p>Mengingat pentingnya acara tersebut, kami mengharapkan kehadiran Bapak/Ibu tepat pada waktunya. Atas perhatian Bapak/Ibu, kami mengucapkan terima kasih.</p>
+<p style="text-align:right">Hormat kami,<br>Kepala SD Pelita Bangsa</p></article>`,
+d8:`<article class="teks"><h4>Ayo Membaca 15 Menit Setiap Hari!</h4>
+<p>(1) Tahukah kamu bahwa membaca 15 menit setiap hari dapat menambah ratusan kosakata baru dalam setahun? (2) Membaca juga melatih daya ingat dan membuat kita lebih mudah memahami pelajaran. (3) Kamu bisa membaca buku cerita, majalah anak, atau ensiklopedia. (4) Menurut saya, buku cerita adalah bacaan yang paling seru. (5) Ayo, jadikan membaca sebagai kebiasaan sebelum tidur!</p></article>`,
+e1:`<article class="teks"><h4>Asal Mula Kampung Pelangi</h4>
+<p>Konon, di lereng Gunung Sari hidup seorang pemuda bernama Bayu. Ia pandai membuat kain tenun. Setiap kain buatannya berwarna cerah dan disukai warga.</p>
+<p>Suatu hari, datang seorang saudagar kaya. "Tenunkan kain untukku saja. Aku akan membayarmu sepuluh kali lipat, asalkan kau tidak menenun untuk warga lagi," katanya.</p>
+<p>Bayu menolak. "Kain ini kubuat agar semua orang bisa memakai pakaian yang indah, bukan hanya orang kaya," jawabnya. Saudagar itu pergi dengan marah.</p>
+<p>Bayu kemudian mengajari warga cara menenun. Tak lama, setiap rumah menjemur kain tenun berwarna-warni di halaman. Dari kejauhan, kampung itu tampak seperti pelangi. Sejak itulah kampung tersebut dinamai Kampung Pelangi.</p></article>`,
+e2:`<article class="teks"><h4>Pentas Seni Akhir Tahun SD Mekar Sari Berlangsung Meriah</h4>
+<p><b>Bandung</b> – SD Mekar Sari menggelar pentas seni akhir tahun pada Sabtu, 20 Juni 2026. Acara yang berlangsung di lapangan sekolah itu dihadiri sekitar 400 orang tua dan warga sekitar.</p>
+<p>Sebanyak 12 penampilan disajikan oleh siswa kelas 1 sampai kelas 6, antara lain tari jaipong, paduan suara, drama, dan pembacaan puisi. Penampilan yang paling meriah adalah drama "Si Kabayan" yang dibawakan siswa kelas 6.</p>
+<p>Selain pentas, panitia juga menggelar bazar makanan tradisional. Hasil penjualan bazar sebesar Rp8.500.000 akan digunakan untuk menambah koleksi buku perpustakaan sekolah.</p></article>`,
+e3:`<article class="teks puisi"><h4>Sahabat</h4>
+<p>Kau datang saat aku sendiri<br>Menghapus sedih di dalam hati<br>Tawa kita riang berbagi<br>Suka dan duka kita lalui</p>
+<p>Bagai pelangi sehabis hujan<br>Kau warnai hari-hariku, kawan<br>Semoga persahabatan kita<br>Abadi sampai kapan saja</p></article>`,
+e4:`<article class="teks"><h4>Pengunjung Taman Kota Sejuk</h4><p style="text-indent:0">Diagram batang berikut menunjukkan banyak pengunjung Taman Kota Sejuk pada akhir pekan selama lima bulan.</p>${barChart(['Jan','Feb','Mar','Apr','Mei'],[12,9,15,18,14],{max:20,step:2,lab:4,unit:'Pengunjung (ratus orang)',title:'Pengunjung Taman Kota Sejuk'})}</article>`,
+e5:`<article class="teks"><h4>Mengapa Kita Perlu Tidur Cukup?</h4>
+<p>Tidur bukan hanya waktu untuk beristirahat. Saat kita tidur, otak menyimpan hal-hal yang telah dipelajari sepanjang hari. Tubuh juga memperbaiki sel-sel yang rusak dan menghasilkan hormon pertumbuhan.</p>
+<p>Anak usia 6–12 tahun membutuhkan tidur sekitar 9–12 jam setiap malam. Anak yang kurang tidur biasanya sulit berkonsentrasi, mudah marah, dan lebih mudah sakit.</p>
+<p>Agar tidur nyenyak, matikan televisi dan gawai satu jam sebelum tidur. Biasakan juga tidur dan bangun pada jam yang sama setiap hari.</p></article>`,
+e6:`<article class="teks drama"><h4>Di Kantin Sekolah</h4>
+<p><i>Latar: kantin sekolah saat jam istirahat.</i></p>
+<p><b>Tia</b> : (menghitung uang) Aduh, uangku tinggal dua ribu. Tidak cukup untuk membeli nasi goreng.</p>
+<p><b>Rafi</b> : Kenapa, Tia? Wajahmu murung sekali.</p>
+<p><b>Tia</b> : Uang sakuku hilang separuh. Sepertinya jatuh di lapangan.</p>
+<p><b>Rafi</b> : (tersenyum) Kita beli satu porsi nasi goreng, lalu kita makan berdua. Aku yang menambah uangnya.</p>
+<p><b>Tia</b> : Sungguh? Terima kasih, Rafi! Besok aku ganti, ya.</p>
+<p><b>Rafi</b> : Tidak usah. Nanti setelah makan, kita cari uangmu di lapangan bersama-sama.</p></article>`,
+e7:`<article class="teks"><h4>Petunjuk Arah ke Perpustakaan Daerah</h4>
+<p>Dari gerbang SD Harapan, belok kiri menuju Jalan Merdeka. Berjalanlah lurus sekitar 200 meter hingga menemukan perempatan dengan lampu lalu lintas. Di perempatan itu, belok kanan ke Jalan Diponegoro. Perpustakaan Daerah berada di sebelah kiri jalan, tepat di samping kantor pos dan di seberang taman kota.</p></article>`,
+e8:`<article class="teks"><h4>Menjaga Kebersihan Sekolah</h4>
+<p>(1) Kebersihan sekolah merupakan tanggung jawab seluruh warga sekolah. (2) Setiap pagi, siswa yang mendapat jadwal piket menyapu kelas dan membuang sampah. (3) Sampah dibuang ke tempat sampah sesuai jenisnya, yaitu sampah organik dan anorganik. (4) Sekolah juga mengadakan kerja bakti setiap hari Jumat. (5) Dengan lingkungan yang bersih, kegiatan belajar menjadi lebih nyaman.</p></article>`,
+});
+PAKET.push(
+{id:9,no:3,mapel:'bi',nama:'Pulau Dongeng',warna:'#B03A2E',art:'book',soal:[
+{x:'d1',d:'I',l:1,q:'Masalah yang dialami warga Desa Sukamaju adalah ....',o:['pantai desa terus terkikis ombak','ikan di laut semakin banyak','bibit mangrove sulit didapat','pelajar tidak mau ikut menanam'],p:'Pak Darmo menjelaskan bahwa <b>pantai desa terus terkikis ombak</b>: garis pantai mundur hampir 20 meter dalam lima tahun dan beberapa tambak hilang.'},
+{x:'d1',d:'I',l:2,t:'mc',q:'Manfaat pohon mangrove menurut teks adalah ....',o:['menahan ombak','menahan lumpur','menjadi tempat berkembang biak ikan, kepiting, dan udang','menghasilkan buah untuk dijual'],k:[0,1,2],p:'Paragraf ketiga menyebutkan akar mangrove <b>menahan ombak dan lumpur</b>, dan hutan mangrove menjadi <b>tempat berkembang biak ikan, kepiting, dan udang</b>. Teks tidak menyebut buah untuk dijual.'},
+{x:'d1',d:'I',l:3,q:'Setiap bibit diberi papan kecil bertuliskan nama penanamnya. Tujuan yang paling mungkin adalah ....',o:['agar setiap pelajar bertanggung jawab merawat bibit yang ditanamnya','agar bibit tidak terbawa ombak','agar pantai terlihat lebih indah','agar nelayan dapat menjual bibit tersebut'],p:'Pelajar ditugasi merawat bibit selama tiga bulan. Papan nama membuat setiap pelajar tahu bibit mana yang menjadi <b>tanggung jawabnya</b>.'},
+{x:'d1',d:'I',l:2,q:'Kalimat utama paragraf ketiga adalah ....',o:['Mangrove dipilih karena akarnya dapat menahan ombak dan lumpur.','Selain itu, hutan mangrove menjadi tempat berkembang biak ikan, kepiting, dan udang.','Kegiatan ini diprakarsai oleh kelompok nelayan setempat.','Para pelajar diberi tugas merawat bibit selama tiga bulan pertama.'],p:'Paragraf ketiga membahas alasan mangrove dipilih. Kalimat pertamanya, <b>"Mangrove dipilih karena akarnya dapat menahan ombak dan lumpur"</b>, adalah kalimat utama; kalimat kedua hanya menambahkan penjelasan.'},
+{x:'d1',d:'I',l:2,q:'Makna kata <i>diprakarsai</i> pada paragraf pertama adalah ....',o:['dimulai atau diusulkan pertama kali','dihentikan','dibiayai sepenuhnya','dilarang'],p:'Prakarsa berarti usaha yang mula-mula, atau inisiatif. Kegiatan <b>diprakarsai</b> kelompok nelayan berarti kelompok nelayanlah yang <b>pertama kali mengusulkan dan memulainya</b>.'},
+{x:'d2',d:'S',l:2,q:'Watak Raka dalam cerita tersebut adalah ....',o:['jujur dan sopan','penakut dan pemalas','nakal dan suka mengambil barang orang','pemarah dan tidak sabar'],p:'Raka tidak memanjat pohon tanpa izin walaupun disarankan temannya, lalu meminta izin kepada Pak Harun. Sikap ini menunjukkan watak <b>jujur dan sopan</b>.'},
+{x:'d2',d:'S',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai isi cerita!',s:[['Layang-layang Raka dibeli di toko.',0],['Andi menyarankan Raka memanjat pohon.',1],['Raka memanjat pohon ketika Pak Harun pergi.',0],['Pak Harun memberi Raka beberapa buah jambu.',1]],p:'Layang-layang itu <b>buatan Raka sendiri</b> (Salah). Andi berbisik, "Panjat saja" (Benar). Raka memilih menunggu, tidak memanjat (Salah). Pak Harun memberikan jambu untuk ibu Raka (Benar).'},
+{x:'d2',d:'S',l:3,q:'Amanat yang terkandung dalam cerita tersebut adalah ....',o:['Mintalah izin sebelum mengambil sesuatu dari tempat orang lain.','Buatlah layang-layang dari bahan yang kuat.','Jangan bermain layang-layang di dekat pohon.','Turutilah semua saran teman.'],p:'Raka mengingat pesan ayahnya dan memilih <b>meminta izin</b> sehingga Pak Harun menghargainya. Itulah pesan utama cerita.'},
+{x:'d2',d:'S',l:1,q:'Layang-layang Raka tersangkut di ....',o:['pohon jambu Pak Harun','pohon mangga milik Andi','atap rumah Raka','pagar rumah Pak Harun'],p:'Kalimat pertama cerita menyebutkan layang-layang tersangkut di <b>pohon jambu Pak Harun</b>.'},
+{x:'d2',d:'S',l:2,q:'Makna kata <i>ragu</i> dalam kalimat "Raka ragu." adalah ....',o:['belum yakin untuk memutuskan sesuatu','sangat gembira','merasa marah','sudah pasti'],p:'Ragu berarti <b>bimbang atau belum yakin</b>. Raka bimbang antara menuruti saran Andi atau mengikuti pesan ayahnya.'},
+{x:'d3',d:'I',l:1,t:'mc',q:'Buah yang kandungan vitamin C-nya lebih dari 50 mg adalah ....',o:['jambu biji','jeruk','pepaya','pisang','apel'],k:[0,1,2],p:'Vitamin C: jambu biji 228 mg, jeruk 53 mg, pepaya 61 mg (semuanya lebih dari 50 mg). Pisang hanya 9 mg dan apel 5 mg.'},
+{x:'d3',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai tabel!',s:[['Pisang menghasilkan energi paling besar.',1],['Kandungan serat jeruk sama dengan apel.',1],['Kandungan vitamin C pepaya lebih rendah daripada jeruk.',0],['Kandungan vitamin C jambu biji lebih dari empat kali jeruk.',1]],p:'Energi pisang 89 kkal, paling besar (Benar). Serat jeruk dan apel sama-sama 2,4 g (Benar). Vitamin C pepaya 61 mg, lebih tinggi daripada jeruk 53 mg (Salah). 4 × 53 = 212, dan 228 &gt; 212 (Benar).'},
+{x:'d3',d:'I',l:3,q:'Dina mencari buah yang vitamin C-nya lebih dari 50 mg tetapi energinya paling rendah. Buah yang paling tepat dipilih Dina adalah ....',o:['pepaya','jeruk','jambu biji','apel'],p:'Buah dengan vitamin C lebih dari 50 mg: jambu biji (68 kkal), jeruk (47 kkal), dan pepaya (43 kkal). Energi paling rendah adalah <b>pepaya</b>. Apel vitamin C-nya hanya 5 mg.'},
+{x:'d4',d:'S',l:2,q:'Pesan yang ingin disampaikan penyair melalui puisi "Laut" adalah ....',o:['Kita harus menjaga kebersihan laut.','Nelayan harus mencari ikan setiap hari.','Kita sebaiknya berlibur ke pantai.','Burung camar suka terbang pada pagi hari.'],p:'Bait kedua ditutup dengan "Akan kujaga engkau selalu / Agar tetap bersih dan biru". Pesannya: <b>kita harus menjaga kebersihan laut</b>.'},
+{x:'d4',d:'S',l:2,t:'mc',q:'Larik yang menggambarkan benda atau hewan seolah-olah dapat berbuat seperti manusia adalah ....',o:['Ombak berlari ke tepi pantai','Camar menari di langit biru','Tempat nelayan mencari ikan','Wahai laut yang luas membentang'],k:[0,1],p:'Ombak yang <b>berlari</b> dan camar yang <b>menari</b> digambarkan seperti manusia (majas personifikasi). Nelayan mencari ikan adalah perbuatan manusia yang sebenarnya, dan "laut yang luas membentang" hanya menggambarkan keadaan laut.'},
+{x:'d4',d:'S',l:1,q:'Kata yang maknanya sama dengan kata <i>membentang</i> adalah ....',o:['terhampar','tergulung','menyempit','tertutup'],p:'Membentang berarti <b>terhampar luas</b>. Tergulung dan menyempit justru berlawanan maknanya.'},
+{x:'d4',d:'S',l:1,q:'Keinginan penyair untuk melindungi laut terdapat pada larik ....',o:['Akan kujaga engkau selalu','Membawa buih putih berderai','Menyambut pagi yang baru','Tempat nelayan mencari ikan'],p:'Larik <b>"Akan kujaga engkau selalu"</b> menunjukkan keinginan penyair untuk menjaga laut.'},
+{x:'d5',d:'I',l:1,q:'Langkah yang dilakukan setelah menuangkan sabun ke telapak tangan adalah ....',o:['menggosok kedua telapak tangan dan punggung tangan','membasahi kedua tangan dengan air mengalir','membilas kedua tangan','mengeringkan tangan dengan handuk'],p:'Langkah kedua adalah menuangkan sabun. Langkah ketiga adalah <b>menggosok kedua telapak tangan dan punggung tangan</b>.'},
+{x:'d5',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai teks!',s:[['Tangan dibasahi dengan air mengalir sebelum diberi sabun.',1],['Ibu jari digosok secara berputar.',1],['Tangan dikeringkan sebelum dibilas.',0],['Mencuci tangan cukup dilakukan selama 10 detik.',0]],p:'Langkah 1 membasahi tangan, langkah 2 memberi sabun (Benar). Langkah 5 menggosok ibu jari secara berputar (Benar). Tangan dibilas dahulu (langkah 6), baru dikeringkan (langkah 7) (Salah). Teks menyarankan 40–60 detik (Salah).'},
+{x:'d5',d:'I',l:3,q:'Tangan dibilas dengan air mengalir, bukan dengan air di dalam baskom. Alasan yang paling tepat adalah ....',o:['agar kotoran dan kuman ikut terbuang bersama aliran air','agar sabun menjadi lebih wangi','agar tangan cepat kering','agar air di dalam baskom tidak habis'],p:'Air mengalir langsung membawa <b>kotoran dan kuman pergi</b>. Air di dalam baskom yang sama akan tercampur kotoran dari tangan.'},
+{x:'d6',d:'S',l:2,q:'Watak Lebah dalam cerita tersebut adalah ....',o:['rajin dan pemaaf','sombong dan malas','pelit dan pemarah','penakut dan pemalu'],p:'Lebah terus bekerja mengumpulkan sari bunga (<b>rajin</b>) dan tetap menolong Kupu-kupu yang dulu mengejeknya (<b>pemaaf</b>).'},
+{x:'d6',d:'S',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai isi cerita!',s:[['Kupu-kupu mengejek Lebah yang bekerja keras.',1],['Bunga-bunga rusak karena musim kemarau.',0],['Lebah menolak membantu Kupu-kupu.',0],['Kupu-kupu meminta maaf kepada Lebah.',1]],p:'Kupu-kupu berkata, "Untuk apa bekerja keras setiap hari?" (Benar). Bunga rusak karena <b>musim hujan</b> (Salah). Lebah justru memberi madu (Salah). Kupu-kupu berkata, "Maafkan aku yang dulu mengejekmu" (Benar).'},
+{x:'d6',d:'S',l:3,q:'Amanat yang dapat diambil dari cerita tersebut adalah ....',o:['Rajinlah bekerja dan jangan meremehkan orang lain.','Kita harus memiliki sayap yang indah.','Jangan keluar rumah saat musim hujan.','Kita tidak perlu menolong orang yang pernah mengejek.'],p:'Kupu-kupu yang malas dan suka mengejek akhirnya kesulitan, sedangkan Lebah yang rajin dapat menolong. Pesannya: <b>rajinlah bekerja dan jangan meremehkan orang lain</b>.'},
+{x:'d6',d:'S',l:2,t:'mc',q:'Akibat datangnya musim hujan yang berhari-hari menurut cerita adalah ....',o:['bunga-bunga rusak','Kupu-kupu kelaparan','Kupu-kupu kedinginan','sarang lebah hanyut'],k:[0,1,2],p:'Paragraf ketiga menyebutkan hujan berhari-hari membuat <b>bunga-bunga rusak</b>, sehingga Kupu-kupu <b>kelaparan dan kedinginan</b>. Sarang lebah tidak hanyut; Kupu-kupu justru berlindung di sana.'},
+{x:'d7',d:'I',l:1,q:'Tujuan surat tersebut adalah ....',o:['mengundang orang tua murid kelas 6 menghadiri pertemuan','mengumumkan hasil TKA','meminta murid kelas 6 belajar di aula','memberi tahu jadwal libur sekolah'],p:'Isi surat menyebutkan, "kami <b>mengundang</b> Bapak/Ibu untuk menghadiri pertemuan orang tua/wali murid".'},
+{x:'d7',d:'I',l:2,t:'mc',q:'Informasi yang sesuai dengan isi surat adalah ....',o:['Pertemuan diadakan di aula sekolah.','Pertemuan berlangsung selama dua jam.','Surat ditulis oleh kepala sekolah.','Pertemuan wajib dihadiri murid kelas 6.'],k:[0,1,2],p:'Tempat pertemuan <b>Aula SD Pelita Bangsa</b>, pukul 08.00–10.00 (<b>dua jam</b>), dan surat ditandatangani <b>Kepala SD Pelita Bangsa</b>. Yang diundang adalah orang tua/wali murid, bukan murid.'},
+{x:'d7',d:'I',l:2,q:'Kalimat yang berfungsi sebagai penutup isi surat tersebut adalah ....',o:['Atas perhatian Bapak/Ibu, kami mengucapkan terima kasih.','Dengan hormat,','Sehubungan dengan akan dilaksanakannya Tes Kemampuan Akademik (TKA), kami mengundang Bapak/Ibu ....','Jakarta, 2 Mei 2026'],p:'Penutup isi surat biasanya berisi ucapan terima kasih: <b>"Atas perhatian Bapak/Ibu, kami mengucapkan terima kasih."</b> "Dengan hormat" adalah salam pembuka, dan "Jakarta, 2 Mei 2026" adalah tempat dan tanggal surat.'},
+{x:'d8',d:'I',l:1,q:'Kalimat ajakan dalam teks tersebut adalah kalimat nomor ....',o:['(5)','(1)','(3)','(4)'],p:'Kalimat (5) diawali kata <b>"Ayo"</b> dan mengajak pembaca menjadikan membaca sebagai kebiasaan.'},
+{x:'d8',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai teks!',s:[['Kalimat (1) berupa kalimat tanya.',1],['Kalimat (4) merupakan opini.',1],['Menurut teks, kita hanya boleh membaca buku pelajaran.',0],['Teks tersebut bertujuan mengajak pembaca gemar membaca.',1]],p:'Kalimat (1) diawali "Tahukah kamu" dan diakhiri tanda tanya (Benar). Kalimat (4) diawali "Menurut saya", yaitu pendapat pribadi (Benar). Kalimat (3) menyebut buku cerita, majalah, dan ensiklopedia (Salah). Judul dan kalimat (5) berisi ajakan membaca (Benar).'},
+{x:'d8',d:'I',l:3,q:'Judul lain yang paling sesuai untuk teks tersebut adalah ....',o:['Manfaat Membaca Setiap Hari','Cara Membuat Buku Cerita','Jadwal Tidur Anak Sekolah','Perpustakaan di Kotaku'],p:'Teks membahas manfaat membaca (menambah kosakata, melatih daya ingat) dan mengajak membaca setiap hari. Judul yang sesuai adalah <b>"Manfaat Membaca Setiap Hari"</b>.'},
+]},
+{id:10,no:4,mapel:'bi',nama:'Menara Kata',warna:'#2F6B8A',art:'cloud',soal:[
+{x:'e1',d:'S',l:1,q:'Keahlian Bayu dalam cerita tersebut adalah ....',o:['membuat kain tenun','berdagang kain','melukis pelangi','menjahit pakaian'],p:'Paragraf pertama menyebutkan Bayu <b>pandai membuat kain tenun</b>.'},
+{x:'e1',d:'S',l:2,q:'Alasan Bayu menolak tawaran saudagar adalah ....',o:['Bayu ingin semua orang dapat memakai pakaian yang indah.','Bayu tidak suka kepada orang kaya.','Bayaran dari saudagar terlalu sedikit.','Bayu ingin pindah ke kota.'],p:'Bayu berkata, "Kain ini kubuat agar <b>semua orang bisa memakai pakaian yang indah</b>, bukan hanya orang kaya."'},
+{x:'e1',d:'S',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai isi cerita!',s:[['Saudagar ingin Bayu hanya menenun untuknya.',1],['Bayu menerima tawaran saudagar.',0],['Bayu mengajari warga cara menenun.',1],['Kampung itu dinamai Kampung Pelangi karena sering muncul pelangi setelah hujan.',0]],p:'Saudagar meminta Bayu tidak menenun untuk warga lagi (Benar). Bayu menolak (Salah). Bayu mengajari warga menenun (Benar). Nama Kampung Pelangi berasal dari <b>kain berwarna-warni</b> yang dijemur warga (Salah).'},
+{x:'e1',d:'S',l:3,q:'Amanat cerita "Asal Mula Kampung Pelangi" adalah ....',o:['Kita hendaknya berbagi kepandaian untuk kebaikan bersama.','Kita harus menjadi saudagar yang kaya.','Kain tenun hanya boleh dipakai orang kaya.','Kita sebaiknya tinggal di lereng gunung.'],p:'Bayu menolak bayaran besar dan justru mengajari warga menenun sehingga seluruh kampung menjadi indah. Pesannya: <b>berbagi kepandaian untuk kebaikan bersama</b>.'},
+{x:'e1',d:'S',l:2,q:'Makna kata <i>saudagar</i> dalam cerita tersebut adalah ....',o:['pedagang besar yang kaya','petani','raja','penenun'],p:'Saudagar berarti <b>pedagang besar</b>. Dalam cerita, saudagar itu kaya dan sanggup membayar sepuluh kali lipat.'},
+{x:'e2',d:'I',l:1,q:'Pentas seni akhir tahun SD Mekar Sari diadakan di ....',o:['lapangan sekolah','aula sekolah','perpustakaan sekolah','gedung kesenian kota'],p:'Paragraf pertama: "Acara yang berlangsung di <b>lapangan sekolah</b> itu ...."'},
+{x:'e2',d:'I',l:2,t:'mc',q:'Pernyataan yang sesuai dengan isi berita adalah ....',o:['Pentas seni diikuti siswa kelas 1 sampai kelas 6.','Ada 12 penampilan dalam pentas seni.','Hasil bazar digunakan untuk menambah koleksi buku perpustakaan.','Penampilan paling meriah adalah paduan suara.'],k:[0,1,2],p:'Berita menyebut <b>12 penampilan</b> oleh <b>siswa kelas 1 sampai 6</b>, dan hasil bazar untuk <b>menambah buku perpustakaan</b>. Penampilan paling meriah adalah drama "Si Kabayan", bukan paduan suara.'},
+{x:'e2',d:'I',l:2,q:'Pertanyaan yang jawabannya terdapat pada paragraf ketiga adalah ....',o:['Untuk apa hasil penjualan bazar digunakan?','Siapa yang membawakan drama "Si Kabayan"?','Kapan pentas seni dilaksanakan?','Berapa orang yang menghadiri acara?'],p:'Paragraf ketiga membahas bazar dan <b>kegunaan hasil penjualannya</b>. Pertanyaan lain dijawab di paragraf pertama dan kedua.'},
+{x:'e2',d:'I',l:3,q:'Simpulan yang tepat berdasarkan berita tersebut adalah ....',o:['Pentas seni SD Mekar Sari berlangsung meriah dan hasilnya bermanfaat bagi sekolah.','Pentas seni hanya diikuti siswa kelas 6.','Bazar makanan tradisional tidak laku terjual.','Orang tua tidak tertarik menonton pentas seni.'],p:'Acara dihadiri sekitar 400 orang, menampilkan 12 penampilan, dan hasil bazar Rp8.500.000 dipakai untuk perpustakaan. Simpulannya: <b>acara meriah dan bermanfaat bagi sekolah</b>.'},
+{x:'e3',d:'S',l:1,q:'Tema puisi "Sahabat" adalah ....',o:['persahabatan','keindahan alam','perpisahan','kerja keras'],p:'Puisi menceritakan sahabat yang menghapus sedih, berbagi tawa, dan diharapkan abadi. Temanya <b>persahabatan</b>.'},
+{x:'e3',d:'S',l:2,q:'Larik yang mengandung majas perbandingan (menggunakan kata "bagai") adalah ....',o:['Bagai pelangi sehabis hujan','Kau datang saat aku sendiri','Tawa kita riang berbagi','Abadi sampai kapan saja'],p:'Majas perbandingan menyamakan dua hal dengan kata <i>bagai</i>, <i>seperti</i>, atau <i>laksana</i>. Larik <b>"Bagai pelangi sehabis hujan"</b> membandingkan sahabat dengan pelangi.'},
+{x:'e3',d:'S',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut tentang puisi "Sahabat"!',s:[['Puisi tersebut terdiri atas dua bait.',1],['Setiap bait terdiri atas empat larik.',1],['Bait pertama berima a-a-a-a.',1],['Puisi tersebut menceritakan kesedihan karena berpisah dengan sahabat.',0]],p:'Puisi terdiri atas 2 bait, masing-masing 4 larik (Benar, Benar). Bunyi akhir bait pertama: sendiri, hati, berbagi, lalui, semuanya berakhir bunyi <i>i</i> (Benar). Puisi berisi kebahagiaan bersahabat, bukan perpisahan (Salah).'},
+{x:'e3',d:'S',l:3,q:'Makna larik "Kau warnai hari-hariku, kawan" adalah ....',o:['Sahabat membuat hari-hari penulis lebih ceria.','Sahabat pandai melukis dengan banyak warna.','Penulis dan sahabat suka mewarnai gambar.','Hari-hari penulis selalu turun hujan.'],p:'"Mewarnai hari-hari" adalah ungkapan kiasan yang berarti <b>membuat hari-hari lebih ceria dan menyenangkan</b>, bukan mewarnai dalam arti sebenarnya.'},
+{x:'e4',d:'I',l:1,q:'Pengunjung Taman Kota Sejuk paling banyak terjadi pada bulan ....',o:['April','Maret','Mei','Januari'],p:'Batang tertinggi ada pada bulan <b>April</b>, yaitu 18 ratus atau 1.800 orang.'},
+{x:'e4',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai diagram!',s:[['Pengunjung bulan Maret sebanyak 1.500 orang.',1],['Pengunjung bulan Februari paling sedikit.',1],['Pengunjung selalu meningkat setiap bulan dari Januari sampai Mei.',0],['Selisih pengunjung bulan April dan Januari adalah 600 orang.',1]],p:'Maret = 15 ratus = 1.500 (Benar). Februari 900 orang, paling sedikit (Benar). Pengunjung turun dari Januari ke Februari dan dari April ke Mei (Salah). April 1.800 − Januari 1.200 = 600 (Benar).'},
+{x:'e4',d:'I',l:3,q:'Simpulan yang sesuai dengan diagram tersebut adalah ....',o:['Pengunjung meningkat dari Februari sampai April, lalu menurun pada bulan Mei.','Pengunjung selalu sama setiap bulan.','Pengunjung terus menurun sejak bulan Januari.','Pengunjung bulan Mei paling banyak.'],p:'Data: 1.200, 900, 1.500, 1.800, 1.400. Pengunjung <b>naik dari Februari sampai April</b>, lalu <b>turun pada Mei</b>.'},
+{x:'e5',d:'I',l:1,q:'Menurut teks, anak usia 6–12 tahun membutuhkan tidur sekitar ....',o:['9–12 jam setiap malam','6–8 jam setiap malam','12–15 jam setiap malam','5 jam setiap malam'],p:'Paragraf kedua menyebutkan anak usia 6–12 tahun membutuhkan tidur <b>sekitar 9–12 jam setiap malam</b>.'},
+{x:'e5',d:'I',l:2,t:'mc',q:'Akibat kurang tidur pada anak menurut teks adalah ....',o:['sulit berkonsentrasi','mudah marah','lebih mudah sakit','tubuh menjadi lebih tinggi'],k:[0,1,2],p:'Teks menyebut anak yang kurang tidur <b>sulit berkonsentrasi, mudah marah, dan lebih mudah sakit</b>. Hormon pertumbuhan justru dihasilkan saat tidur.'},
+{x:'e5',d:'I',l:3,q:'Doni (11 tahun) tidur pukul 22.00 dan bangun pukul 05.30. Berdasarkan teks, pernyataan yang tepat adalah ....',o:['Waktu tidur Doni kurang dari kebutuhan anak seusianya.','Waktu tidur Doni sudah cukup.','Doni tidur lebih dari 12 jam.','Doni tidur tepat 9 jam.'],p:'Pukul 22.00 sampai 05.30 = 7 jam 30 menit. Kebutuhan anak 6–12 tahun adalah 9–12 jam, jadi tidur Doni <b>kurang dari kebutuhannya</b>.'},
+{x:'e5',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai teks!',s:[['Saat tidur, otak menyimpan hal-hal yang telah dipelajari.',1],['Anak usia 6–12 tahun cukup tidur 6 jam setiap malam.',0],['Menonton televisi sebelum tidur membantu tidur lebih nyenyak.',0],['Tidur dan bangun pada jam yang sama merupakan kebiasaan yang baik.',1]],p:'Paragraf pertama menyebut otak menyimpan hal yang dipelajari (Benar). Kebutuhan tidur 9–12 jam (Salah). Televisi dan gawai sebaiknya dimatikan satu jam sebelum tidur (Salah). Teks menganjurkan tidur dan bangun pada jam yang sama (Benar).'},
+{x:'e6',d:'S',l:1,q:'Latar tempat dan waktu drama tersebut adalah ....',o:['kantin sekolah saat jam istirahat','lapangan sekolah saat upacara','ruang kelas saat pelajaran','rumah Tia pada sore hari'],p:'Petunjuk latar di awal drama: <b>kantin sekolah saat jam istirahat</b>.'},
+{x:'e6',d:'S',l:2,q:'Watak Rafi dalam drama tersebut adalah ....',o:['dermawan dan suka menolong','pelit dan sombong','pemalu dan penakut','pemarah dan egois'],p:'Rafi menambah uang untuk membeli nasi goreng, menolak diganti, dan mengajak mencari uang Tia bersama. Wataknya <b>dermawan dan suka menolong</b>.'},
+{x:'e6',d:'S',l:2,t:'mc',q:'Pernyataan yang sesuai dengan isi drama adalah ....',o:['Uang saku Tia hilang separuh.','Rafi menambah uang untuk membeli nasi goreng.','Tia dan Rafi akan mencari uang di lapangan.','Rafi meminta Tia mengganti uangnya besok.'],k:[0,1,2],p:'Tia berkata uang sakunya <b>hilang separuh</b>, Rafi berkata <b>"Aku yang menambah uangnya"</b>, dan mereka akan <b>mencari uang di lapangan</b>. Rafi justru berkata, "Tidak usah," saat Tia ingin mengganti.'},
+{x:'e6',d:'S',l:1,q:'Keterangan dalam tanda kurung, seperti (tersenyum) dan (menghitung uang), dalam naskah drama disebut ....',o:['petunjuk lakuan','dialog','judul drama','amanat'],p:'Keterangan dalam tanda kurung menunjukkan gerak atau sikap tokoh dan disebut <b>petunjuk lakuan</b>. Dialog adalah percakapan antartokoh.'},
+{x:'e7',d:'I',l:1,t:'mc',q:'Bangunan dan tempat yang letaknya dekat dengan Perpustakaan Daerah adalah ....',o:['kantor pos','taman kota','pasar','masjid'],k:[0,1],p:'Perpustakaan Daerah berada <b>di samping kantor pos</b> dan <b>di seberang taman kota</b>. Pasar dan masjid tidak disebutkan dalam petunjuk.'},
+{x:'e7',d:'I',l:2,t:'bs',q:'Tentukan benar atau salah setiap pernyataan berikut sesuai petunjuk arah!',s:[['Dari gerbang sekolah, kita belok kanan terlebih dahulu.',0],['Perempatan berada kira-kira 200 meter dari sekolah.',1],['Perpustakaan Daerah berseberangan dengan taman kota.',1],['Perpustakaan Daerah berada di Jalan Merdeka.',0]],p:'Dari gerbang kita <b>belok kiri</b> (Salah). Perempatan sekitar 200 meter (Benar). Perpustakaan di seberang taman kota (Benar). Perpustakaan berada di <b>Jalan Diponegoro</b> (Salah).'},
+{x:'e7',d:'I',l:3,q:'Sinta berjalan dari Perpustakaan Daerah kembali ke SD Harapan melalui jalan yang sama. Sesampainya di perempatan, Sinta harus ....',o:['belok kiri ke Jalan Merdeka','belok kanan ke Jalan Merdeka','berjalan lurus di Jalan Diponegoro','berbalik ke taman kota'],p:'Saat berangkat, di perempatan kita belok kanan dari Jalan Merdeka ke Jalan Diponegoro. Jika arahnya dibalik, kita harus <b>belok kiri</b> dari Jalan Diponegoro ke Jalan Merdeka.'},
+{x:'e8',d:'I',l:2,q:'Kalimat utama paragraf tersebut adalah kalimat nomor ....',o:['(1)','(2)','(4)','(5)'],p:'Kalimat (1) berisi gagasan umum bahwa kebersihan sekolah adalah tanggung jawab seluruh warga sekolah. Kalimat (2) sampai (5) menjelaskan gagasan itu. Jadi kalimat utamanya kalimat <b>(1)</b>.'},
+{x:'e8',d:'I',l:2,q:'Kata <i>yaitu</i> pada kalimat (3) berfungsi untuk ....',o:['memberi penjelasan atau rincian','menyatakan pertentangan','menyatakan sebab','menyatakan waktu'],p:'Kata <i>yaitu</i> dipakai untuk <b>merinci atau menjelaskan</b>. Pada kalimat (3), <i>yaitu</i> merinci jenis sampah: organik dan anorganik.'},
+{x:'e8',d:'I',l:1,t:'mc',q:'Kalimat yang penulisannya sesuai dengan kaidah ejaan adalah ....',o:['Sekolah kami mengadakan kerja bakti setiap hari Jumat.','Setiap pagi, siswa yang piket menyapu kelas.','sekolah kami mengadakan kerja bakti setiap hari jumat.','Sekolah Kami mengadakan Kerja Bakti setiap Hari Jumat.'],k:[0,1],p:'Huruf kapital dipakai di awal kalimat dan pada nama hari (<b>Jumat</b>), dan kalimat diakhiri tanda titik. Kedua kalimat pertama sudah benar. Kalimat ketiga tidak diawali huruf kapital dan menulis "jumat" dengan huruf kecil, sedangkan kalimat keempat memakai huruf kapital pada kata yang bukan nama (<i>Kami</i>, <i>Kerja Bakti</i>, <i>Hari</i>).'},
+]}
+);
+
 /* =========================================================
    2. APLIKASI
    ========================================================= */
@@ -1023,6 +1290,8 @@ function worldArt(k){
     mount:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-10 120 L70 30 L130 100 L170 60 L250 120Z" fill="rgba(255,255,255,.28)"/><path d="M70 30 L86 48 L76 46 L66 52 L56 46Z" fill="#fff"/><polygon points="170,18 186,46 154,46" fill="#FFD166"/><rect x="150" y="70" width="26" height="26" fill="none" stroke="#fff" stroke-width="4"/><circle cx="206" cy="84" r="13" fill="none" stroke="#fff" stroke-width="4"/></svg>',
     book:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M70 34 Q100 24 120 36 Q140 24 170 34 V98 Q140 88 120 100 Q100 88 70 98Z" fill="rgba(255,255,255,.3)"/><path d="M120 36 V100" stroke="#fff" stroke-width="4"/><g stroke="#fff" stroke-width="3.5" stroke-linecap="round"><path d="M84 50h24M84 62h24M84 74h18M132 50h24M132 62h24M132 74h18"/></g><circle cx="196" cy="30" r="12" fill="#FFD166"/><path d="M30 104 q20 -30 40 0" stroke="rgba(255,255,255,.5)" stroke-width="4" fill="none"/></svg>',
     cloud:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="rgba(255,255,255,.3)"><circle cx="70" cy="70" r="26"/><circle cx="100" cy="56" r="32"/><circle cx="134" cy="70" r="24"/><rect x="44" y="70" width="114" height="26" rx="13"/></g><g fill="#fff"><rect x="176" y="40" width="12" height="56" rx="2"/><rect x="192" y="32" width="12" height="64" rx="2"/><rect x="208" y="44" width="12" height="52" rx="2" transform="rotate(10 214 70)"/></g><text x="100" y="66" text-anchor="middle" style="font:700 22px var(--fd);fill:#fff">Aa</text></svg>',
+    tree:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="rgba(255,255,255,.3)"><polygon points="40,100 70,40 100,100"/><polygon points="150,100 185,30 220,100"/></g><g fill="#fff"><polygon points="95,96 125,34 155,96"/><rect x="119" y="96" width="12" height="18"/></g><text x="125" y="84" text-anchor="middle" style="font:800 20px var(--fb);fill:#2B7A4B">+</text><circle cx="200" cy="26" r="10" fill="#FFD166"/></svg>',
+    rocket:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="rgba(255,255,255,.35)"><circle cx="40" cy="30" r="3"/><circle cx="70" cy="70" r="2"/><circle cx="200" cy="90" r="3"/><circle cx="215" cy="30" r="2"/></g><g transform="rotate(35 125 60)"><path d="M125 14 Q145 40 140 86 H110 Q105 40 125 14Z" fill="#fff"/><circle cx="125" cy="48" r="8" fill="#A0522D"/><path d="M110 70 L96 92 L110 88Z M140 70 L154 92 L140 88Z" fill="#FFD166"/><path d="M116 88 Q125 112 134 88Z" fill="#FFC23D"/></g></svg>',
     city:'<svg viewBox="0 0 240 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="rgba(255,255,255,.3)"><rect x="20" y="60" width="30" height="60"/><rect x="58" y="36" width="34" height="84"/><rect x="100" y="70" width="26" height="50"/></g><g fill="#fff"><rect x="150" y="76" width="16" height="36" rx="3"/><rect x="172" y="50" width="16" height="62" rx="3"/><rect x="194" y="30" width="16" height="82" rx="3"/></g><path d="M146 112 H220" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M152 66 L180 42 L204 22" stroke="#FFD166" stroke-width="4" fill="none" stroke-linecap="round"/></svg>',
   };return A[k];
 }
@@ -1063,7 +1332,7 @@ const isRight=i=>rightOf(S,i);
 const lockedLat=(s,i)=>s.mode==='latihan'&&(typ(Q(s,i))==='pg'?filled(s,i):!!s.chk[i]);
 const saveS=()=>{store.session=S;persist()};
 
-function show(id){['home','ready','exam','result','review'].forEach(k=>{$('#scr-'+k).hidden=k!==id});window.scrollTo(0,0)}
+function show(id){['home','ready','exam','result','review','guru','materi'].forEach(k=>{$('#scr-'+k).hidden=k!==id});window.scrollTo(0,0)}
 function toast(msg,ms=2200){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),ms)}
 function modal(title,body,actions){
   const m=$('#modal');m.innerHTML=`<div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt">${title}</h3><div>${body}</div><div class="mact"></div></div>`;
@@ -1080,6 +1349,7 @@ function renderHome(){
   const name=store.name||'';
   const totalStars=PAKET.reduce((s,p)=>s+((store.best[p.id]||{}).stars||0),0);
   const cm=store.mapel||'mat',LIST=PAKET.filter(p=>mp(p)===cm),cnt={},tc={pg:0,mc:0,bs:0};LIST[0].soal.forEach(q=>{cnt[q.d]=(cnt[q.d]||0)+1;tc[typ(q)]++});
+  const totalCnt={};MAPEL[cm].dom.forEach(k=>totalCnt[k]=0);LIST.forEach(p=>p.soal.forEach(q=>{if(totalCnt[q.d]!==undefined)totalCnt[q.d]++}));
   const ses=store.session;
   let resume='';
   if(ses&&!ses.done){
@@ -1094,6 +1364,7 @@ function renderHome(){
     <div class="purse">
       <span class="pill sun" title="Bintang terkumpul">${I.star.replace('<svg','<svg class="ico"')} ${totalStars}/${PAKET.length*3}</span>
       <span class="pill fire" title="Total poin">${I.fire} ${store.xp} poin</span>
+      <button class="btn small ghost" id="btnGuru">Halaman Guru</button>
       <button class="iconbtn" id="btnSnd" aria-label="${store.sound?'Matikan suara':'Nyalakan suara'}">${store.sound?I.vol:I.mute}</button>
     </div>
   </div>
@@ -1124,6 +1395,8 @@ function renderHome(){
         <button class="btn" data-go="${p.id}">Mulai misi ${I.right}</button>
       </div>
     </article>`}).join('')}</div>
+  <div class="sec-h"><h2>Latihan per Materi</h2><p>Fokus berlatih pada satu materi yang masih lemah, langsung ada pembahasannya</p></div>
+  <div class="subj matgrid" role="group" aria-label="Pilih materi">${MAPEL[cm].dom.map(k=>`<button data-materi="${k}"><b><i class="dot" style="background:${DCOL[k]}"></i> ${DOM[k]}</b><small>${totalCnt[k]||0} soal tersedia</small></button>`).join('')}</div>
   <div class="infos">
     <div class="info"><h3>Bentuk soal seperti TKA</h3>
       <div class="drow"><span>Pilihan ganda<br><small style="color:var(--muted)">pilih 1 jawaban benar</small></span><span>${tc.pg} soal</span></div>
@@ -1141,16 +1414,129 @@ function renderHome(){
   </div>
   <p class="foot">Nilai dan kemajuan disimpan di perangkat ini saja.</p>`;
   $('#inName').addEventListener('input',e=>{store.name=e.target.value.trim();$('#hName').textContent=store.name||'Sahabat';persist()});
+  document.querySelectorAll('[data-materi]').forEach(b=>b.onclick=()=>startMateri(b.dataset.materi));
   document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;store.mode=mode;persist();SND.click();
     document.querySelectorAll('.seg button').forEach(x=>{const on=x===b;x.setAttribute('aria-pressed',on);x.setAttribute('aria-checked',on)})});
   document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{SND.click();
     if(store.session&&!store.session.done){modal('Ada misi yang belum selesai','<p>Kalau memulai misi baru, jawaban pada misi sebelumnya akan dihapus. Lanjutkan?</p>',[{t:'Batal',cls:'ghost'},{t:'Mulai baru',cls:'warm',fn:()=>{store.session=null;persist();renderReady(+b.dataset.go)}}])}
     else renderReady(+b.dataset.go)});
   $('#btnSnd').onclick=()=>{store.sound=!store.sound;persist();renderHome();SND.click()};
+  $('#btnGuru').onclick=()=>{SND.click();renderGuru()};
   if($('#btnResume'))$('#btnResume').onclick=()=>{S=store.session;mode=S.mode;startExam(true)};
   document.querySelectorAll('[data-mp]').forEach(b=>b.onclick=()=>{const y=window.scrollY;store.mapel=b.dataset.mp;persist();SND.click();renderHome();window.scrollTo(0,y)});
   if($('#btnDrop'))$('#btnDrop').onclick=()=>modal('Hapus misi ini?','<p>Semua jawaban pada misi yang belum selesai akan hilang.</p>',[{t:'Batal',cls:'ghost'},{t:'Hapus',cls:'warm',fn:()=>{store.session=null;persist();renderHome()}}]);
   show('home');
+}
+
+/* ---------- LATIHAN PER MATERI (drill fokus per domain, dipakai bersama Analisis Soal Halaman Guru) ---------- */
+let MS=null;
+function startMateri(dom){
+  const cm=store.mapel||'mat';let pool=[];
+  PAKET.filter(p=>mp(p)===cm).forEach(p=>p.soal.forEach(q=>{if(q.d===dom)pool.push(q)}));
+  if(!pool.length)return;
+  const soal=shuffle(pool).slice(0,Math.min(15,pool.length));
+  MS={dom,mapel:cm,i:0,soal,ord:soal.map(q=>typ(q)==='bs'?null:shuffle(q.o.map((_,j)=>j))),ans:Array(soal.length).fill(null),chk:Array(soal.length).fill(false),right:0,wrong:0};
+  SND.click();renderMateriQ();
+}
+function msFilled(i){const a=MS.ans[i];if(a===null||a===undefined)return false;return Array.isArray(a)?a.some(v=>v!==null&&v!==undefined):true}
+function msComplete(i){const q=MS.soal[i],a=MS.ans[i];if(typ(q)!=='bs')return msFilled(i);return !!a&&q.s.every((_,j)=>a[j]===0||a[j]===1)}
+function msRight(i){
+  const q=MS.soal[i],a=MS.ans[i],t=typ(q);if(!msFilled(i))return false;
+  if(t==='pg')return MS.ord[i][a]===0;
+  if(t==='mc')return a.map(k=>MS.ord[i][k]).sort().join()===q.k.slice().sort().join();
+  return q.s.every((st,j)=>a[j]===st[1]);
+}
+function msBody(i,locked){
+  const q=MS.soal[i],t=typ(q),a=MS.ans[i];
+  const text=`<div class="qtext">${fmt(q.q)}</div>`;let h='';
+  if(t==='mc')h+='<p class="hint">Jawaban benar <b>lebih dari satu</b>. Centang semua jawaban yang benar.</p>';
+  if(t==='bs'){
+    h+=`<p class="hint">Pilih <b>Benar</b> atau <b>Salah</b> untuk setiap pernyataan.</p><div class="bs"><div class="bs-h"><span>Pernyataan</span><span>Benar</span><span>Salah</span></div>`;
+    q.s.forEach((st,j)=>{const v=a?a[j]:null;
+      h+=`<div class="bs-r"><div class="bs-t">${fmt(st[0])}</div>`;
+      [1,0].forEach(val=>{let c='bs-b';if(locked){c+=' locked';if(st[1]===val)c+=' right';else if(v===val)c+=' wrong'}else if(v===val)c+=' sel';
+        h+=`<button class="${c}" data-j="${j}" data-v="${val}" aria-pressed="${v===val}"${locked?' tabindex="-1"':''}><span class="bs-dot"></span>${val?'Benar':'Salah'}</button>`});
+      h+='</div>'});
+    h+='</div>';
+  }else{
+    h+=`<div class="opts" role="${t==='mc'?'group':'radiogroup'}">`;
+    MS.ord[i].forEach((oi,k)=>{
+      const on=t==='mc'?(a||[]).includes(k):a===k, key=t==='mc'?q.k.includes(oi):oi===0;
+      let c='opt'+(t==='mc'?' multi':''),mk='';
+      if(locked){c+=' locked';if(key){c+=' right';mk=(t==='mc'&&!on)?'<span class="miss">belum dipilih</span>':I.ok}else if(on){c+=' wrong';mk=I.no}}
+      else if(on)c+=' sel';
+      h+=`<button class="${c}" data-k="${k}"${locked?' tabindex="-1"':''}><span class="let">${t==='mc'&&on&&!locked?'✓':LET[k]}</span><span class="otx">${fmt(q.o[oi])}</span>${mk}</button>`;
+    });
+    h+='</div>';
+  }
+  if(!q.f&&!q.x)return text+h;
+  return `<div class="split${q.x?' read':''}"><section class="ctx">${q.x?TEKS[q.x]:''}${q.f||''}</section><div class="qa">${text}${h}</div></div>`;
+}
+function msKeyText(i){
+  const q=MS.soal[i],t=typ(q);
+  if(t==='pg')return `Jawaban yang benar: <b>${LET[MS.ord[i].indexOf(0)]}. ${fmt(q.o[0])}</b>`;
+  if(t==='mc')return `Jawaban yang benar: <b>${MS.ord[i].map((oi,k)=>q.k.includes(oi)?LET[k]:null).filter(Boolean).join(', ')}</b>`;
+  const a=MS.ans[i]||[];return `Pernyataan yang tepat: <b>${q.s.filter((st,j)=>a[j]===st[1]).length} dari ${q.s.length}</b>. Kunci ditandai hijau.`;
+}
+function renderMateriQ(){
+  const i=MS.i,total=MS.soal.length,q=MS.soal[i],t=typ(q),locked=MS.chk[i];
+  let h=`<div class="qhead"><span class="qno">Soal <b>${i+1}</b> <span>dari ${total}</span></span><span class="typechip">${TYP[t]}</span><span class="chip lv">${LVL[q.l]}</span></div>`;
+  h+=msBody(i,locked);
+  if(t!=='pg'&&!locked){const ready=t==='bs'?msComplete(i):msFilled(i);
+    h+=`<div class="chkrow"><button class="btn okb" id="mCheck"${ready?'':' disabled'}>Periksa jawaban</button><small>${ready?'Sudah yakin? Tekan untuk melihat hasilnya.':t==='bs'?'Isi semua pernyataan dulu, ya.':'Centang minimal satu jawaban.'}</small></div>`}
+  if(locked){const ok=msRight(i);
+    h+=`<div class="fb ${ok?'ok':'no'}"><div class="fb-h"><span style="width:46px;flex:none">${owl(ok?'happy':'sad')}</span><span>${ok?pick(['Tepat sekali!','Hebat, benar!','Mantap, kamu jago!']):pick(['Belum tepat, tidak apa-apa!','Yuk lihat pembahasannya.'])}</span></div>
+    ${ok?'':`<p style="font-weight:700">${msKeyText(i)}</p>`}
+    <p class="pem-l">Pembahasan</p><div class="pem">${fmt(q.p)}</div></div>`}
+  $('#scr-materi').innerHTML=`
+  <div class="topbar"><button class="btn ghost small" id="matBack">${I.left} Halaman awal</button><div class="brand"><span class="mark" style="background:${DCOL[MS.dom]}">∑</span>Latihan · ${esc(DOM[MS.dom])}</div></div>
+  <p style="color:var(--muted);font-weight:700;margin:10px 0 4px">Benar ${MS.right} · Salah ${MS.wrong}</p>
+  <div class="prog"><i style="width:${i/total*100}%"></i></div>
+  <main class="qcard" style="margin-top:16px">${h}</main>
+  <div class="xfoot-in" style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+    ${locked?`<button class="btn ${i===total-1?'okb':''}" id="mNext">${i===total-1?'Lihat ringkasan':'Soal berikutnya'} ${I.right}</button>`:''}
+  </div>`;
+  if(!locked){
+    $('#scr-materi').querySelectorAll('.opt').forEach(b=>b.onclick=()=>msChoose(+b.dataset.k));
+    $('#scr-materi').querySelectorAll('.bs-b').forEach(b=>b.onclick=()=>msChooseBS(+b.dataset.j,+b.dataset.v));
+    if($('#mCheck'))$('#mCheck').onclick=()=>{MS.chk[i]=true;msAward(i)};
+  }
+  $('#matBack').onclick=()=>modal('Keluar dari latihan?','<p>Progres latihan materi ini tidak disimpan.</p>',[{t:'Tetap di sini',cls:'ghost'},{t:'Keluar',cls:'warm',fn:()=>{MS=null;renderHome()}}]);
+  if($('#mNext'))$('#mNext').onclick=()=>{if(i===total-1)renderMateriSummary();else{MS.i++;renderMateriQ()}};
+  show('materi');
+}
+function msAward(i){
+  if(msRight(i)){MS.right++;SND.ok()}else{MS.wrong++;SND.no()}
+  renderMateriQ();
+}
+function msChoose(k){
+  const i=MS.i,t=typ(MS.soal[i]);if(MS.chk[i])return;
+  if(t==='mc'){const a=(MS.ans[i]||[]).slice(),x=a.indexOf(k);if(x>=0)a.splice(x,1);else a.push(k);MS.ans[i]=a.sort();SND.click();renderMateriQ();return}
+  MS.ans[i]=k;
+  if(t==='pg'){MS.chk[i]=true;msAward(i)}else{SND.click();renderMateriQ()}
+}
+function msChooseBS(j,v){
+  const i=MS.i,q=MS.soal[i];if(MS.chk[i])return;
+  const a=(MS.ans[i]||q.s.map(()=>null)).slice();a[j]=a[j]===v?null:v;MS.ans[i]=a;SND.click();renderMateriQ();
+}
+function renderMateriSummary(){
+  const total=MS.soal.length,score=Math.round(MS.right/total*100);
+  $('#scr-materi').innerHTML=`
+  <div class="topbar"><button class="btn ghost small" id="matBack2">${I.left} Halaman awal</button><div class="brand"><span class="mark" style="background:${DCOL[MS.dom]}">∑</span>Latihan · ${esc(DOM[MS.dom])}</div></div>
+  <div class="res">
+    <div class="res-hero">
+      <div class="ring" style="--p:${score};--rc:${score>=70?'var(--ok)':'var(--bad)'}"><div><div><b>${score}</b><br><small>NILAI</small></div></div></div>
+      <div><h2>Latihan ${esc(DOM[MS.dom])} selesai!</h2><p class="msg">Benar ${MS.right} dari ${total} soal yang dicoba.</p></div>
+    </div>
+    <div class="res-actions">
+      <button class="btn warm" id="matAgain">Ulangi materi ini</button>
+      <button class="btn ghost" id="matHome">Pilih materi lain</button>
+    </div>
+  </div>`;
+  $('#matBack2').onclick=()=>renderHome();
+  $('#matAgain').onclick=()=>startMateri(MS.dom);
+  $('#matHome').onclick=()=>renderHome();
+  show('materi');
 }
 
 /* ---------- ALUR MASUK SEPERTI APLIKASI TKA: Login → Konfirmasi Data → Konfirmasi Tes ---------- */
@@ -1177,6 +1563,7 @@ function stepLogin(){
     <div class="login-grid">
       <form class="lform" id="fLogin" novalidate>
         <div class="field"><label for="lgName">Nama peserta</label><input id="lgName" maxlength="24" autocomplete="off" required value="${esc(store.name||'')}" placeholder="Tulis nama panggilanmu"></div>
+        <div class="field"><label for="lgKelas">Kelas <small style="font-weight:600;color:var(--muted)">(boleh dikosongkan)</small></label><input id="lgKelas" maxlength="10" autocomplete="off" value="${esc(store.kelas||'')}" placeholder="contoh: 6A"></div>
         <div class="field"><label for="lgUser">Username</label><input id="lgUser" value="${entry.no}" readonly></div>
         <div class="field"><label for="lgPass">Password</label><input id="lgPass" type="password" value="${entry.pw}" readonly></div>
         <p class="ferr" id="lgErr" role="alert" hidden></p>
@@ -1191,7 +1578,7 @@ function stepLogin(){
   $('#lgBack').onclick=()=>{SND.click();renderHome()};
   $('#fLogin').onsubmit=e=>{e.preventDefault();const nm=$('#lgName').value.trim();
     if(!nm){$('#lgErr').textContent='Tulis namamu dulu, ya.';$('#lgErr').hidden=false;$('#lgName').focus();return}
-    store.name=nm;persist();SND.click();stepData()};
+    store.name=nm;store.kelas=$('#lgKelas').value.trim();persist();SND.click();stepData()};
   $('#lgName').focus();
 }
 function stepData(){
@@ -1202,6 +1589,7 @@ function stepData(){
         <table class="ctab"><tbody>
           <tr><th>Nomor peserta</th><td>${entry.no}</td></tr>
           <tr><th>Nama peserta</th><td>${esc(store.name)}</td></tr>
+          <tr><th>Kelas</th><td>${esc(store.kelas||'–')}</td></tr>
           <tr><th>Jenjang</th><td>SD/MI</td></tr>
           <tr><th>Mata ujian</th><td>${MPN(p)} (Paket ${pno(p)})</td></tr>
         </tbody></table>
@@ -1248,7 +1636,7 @@ function stepTes(){
     <div class="ready-actions"><button class="btn ghost" id="tBack">Kembali</button><button class="btn warm" id="rGo">Mulai ${I.right}</button></div>`);
   $('#tBack').onclick=()=>{SND.click();stepData()};
   $('#rGo').onclick=()=>{
-    S={v:2,pid:p.id,mode,name:store.name||'Sahabat',no:entry.no,ord:p.soal.map(q=>typ(q)==='bs'?null:shuffle(q.o.map((_,j)=>j))),ans:Array(N).fill(null),ragu:Array(N).fill(false),chk:Array(N).fill(false),
+    S={v:2,pid:p.id,mode,name:store.name||'Sahabat',kelas:store.kelas||'',no:entry.no,ord:p.soal.map(q=>typ(q)==='bs'?null:shuffle(q.o.map((_,j)=>j))),ans:Array(N).fill(null),ragu:Array(N).fill(false),chk:Array(N).fill(false),
        cur:0,startAt:Date.now(),endAt:null,begun:false,xp:0,streak:0,bestStreak:0,warned:false,done:false,fs:1,cp:[]};
     saveS();SND.win();startExam(false,$('#wantTour').checked);
   };
@@ -1485,6 +1873,7 @@ function finish(reason){
   clearInterval(tick);closeModal();
   if(S.mode==='latihan')P().soal.forEach((q,i)=>{if(typ(q)!=='pg'&&filled(S,i))S.chk[i]=true});
   S.done=true;S.finishedAt=Date.now();
+  S.code=makeCode(S);store.hist=(store.hist||[]).concat(S.code).slice(-300);
   const r=calc();lastResult={S:JSON.parse(JSON.stringify(S)),r,reason};
   const b=store.best[S.pid];
   if(!b||r.score>b.score)store.best[S.pid]={score:r.score,stars:Math.max(r.stars,b?b.stars:0)};
@@ -1530,6 +1919,10 @@ function renderResult(){
       <div class="stat"><b>${mmss(r.used)}</b><span>Waktu</span></div>
       <div class="stat"><b style="color:var(--acc)">+${r.xp}</b><span>Poin</span></div>
     </div>
+    <div class="panel sendcode"><h3>Kirim hasil ke guru</h3>
+      <p class="gnote">Salin kode di bawah, lalu kirim ke gurumu (misalnya lewat WhatsApp). Guru menempelkan kode ini di Halaman Guru.</p>
+      <div class="codebox" id="codeBox">${s.code||''}</div>
+      <div class="gact"><button class="btn okb" id="cpCode">Salin kode hasil</button></div></div>
     <div class="two">
       <div class="panel"><h3>Nilai per materi</h3>${MAPEL[mp(p)].dom.map(k=>meter(DOM[k],r.dom[k],DCOL[k])).join('')}</div>
       <div class="panel"><h3>Nilai per bentuk soal</h3>${['pg','mc','bs'].map(k=>meter(TYP[k],r.tp[k],'var(--acc)')).join('')}</div>
@@ -1544,6 +1937,7 @@ function renderResult(){
     </div>
     <p class="note">Nilai dan kategori ini hanya perkiraan untuk latihan, bukan nilai resmi TKA. Soal pilihan ganda kompleks dan benar/salah dihitung benar jika seluruh isiannya tepat.</p>
   </div>`;
+  $('#cpCode').onclick=()=>copyText(`Hasil TKA ${s.name}${s.kelas?' ('+s.kelas+')':''}: ${s.code}`,$('#codeBox'));
   $('#rvGo').onclick=()=>{rvFilter=r.wrong+r.empty?'wrong':'all';renderReview()};
   $('#rAgain').onclick=()=>{mode=s.mode;renderReady(s.pid)};
   $('#rHome').onclick=()=>renderHome();
@@ -1575,6 +1969,143 @@ function renderReview(){
   $('#rvHome').onclick=renderHome;
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{rvFilter=b.dataset.f;renderReview()});
   show('review');
+}
+
+/* ---------- KODE HASIL: siswa → guru (tanpa server) ---------- */
+const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
+const ck=s=>{let h=7;for(const c of s)h=(h*31+c.charCodeAt(0))%1679616;return h.toString(36).padStart(4,'0')};
+const clean=(s,n)=>String(s||'').replace(/[|\n\r\t]/g,' ').trim().slice(0,n);
+function makeCode(s){
+  const p=PAKET[s.pid-1],marks=p.soal.map((q,i)=>!filled(s,i)?'-':rightOf(s,i)?'1':'0').join('');
+  const used=Math.max(0,Math.round(((s.finishedAt||Date.now())-s.startAt)/1000));
+  const raw=['T2',s.pid,s.mode==='ujian'?'U':'L',s.mode==='ujian'?Math.min(used,DUR):used,Math.round((s.finishedAt||Date.now())/60000).toString(36),marks,clean(s.name,30),clean(s.kelas,10)].join('|');
+  const b=b64e(raw);return `TKA.${b}.${ck(b)}`;
+}
+function readCodes(text){
+  const out=[],bad=[];const re=/TKA\.([A-Za-z0-9_-]{16,})\.([0-9a-z]{4})/g;let m;
+  while((m=re.exec(text))){
+    try{
+      if(ck(m[1])!==m[2])throw 0;
+      const f=b64d(m[1]).split('|');if(f[0]!=='T2')throw 0;
+      const pid=+f[1],p=PAKET[pid-1];if(!p||f[5].length!==p.soal.length||!/^[01-]+$/.test(f[5]))throw 0;
+      out.push({code:m[0],pid,mode:f[2],used:+f[3]||0,at:parseInt(f[4],36)*60000,marks:f[5],name:f[6]||'Tanpa nama',kelas:f[7]||''});
+    }catch(e){bad.push(m[0])}
+  }
+  if(!out.length&&!bad.length&&text.trim())bad.push(text.trim().slice(0,30));
+  return {out,bad};
+}
+const entScore=e=>{const r=[...e.marks].filter(c=>c==='1').length;return {right:r,wrong:[...e.marks].filter(c=>c==='0').length,empty:[...e.marks].filter(c=>c==='-').length,score:Math.round(r/e.marks.length*100)}};
+const katOf=sc=>sc>=85?'Istimewa':sc>=70?'Baik':sc>=55?'Memadai':'Kurang';
+function addToRekap(list){
+  store.rekap=store.rekap||[];const have=new Set(store.rekap.map(e=>e.code));let n=0,dup=0;
+  list.forEach(e=>{if(have.has(e.code))dup++;else{store.rekap.push(e);have.add(e.code);n++}});
+  persist();return {n,dup};
+}
+async function copyText(txt,el){
+  try{await navigator.clipboard.writeText(txt);toast('Tersalin. Tinggal tempel (paste) di tujuan.');return true}
+  catch(e){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+    toast('Salin otomatis tidak didukung di sini. Teks sudah diblok, tekan Ctrl+C atau tahan lalu pilih Salin.',3800);return false}
+}
+async function saveFile(name,text){
+  try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+    if(dl){await dl.save({filename:name,data:'\ufeff'+text});toast('File disimpan.');return}}
+  catch(e){if(e&&e.code==='declined')return;if(e&&e.code&&!['unavailable','not_granted','capability_disabled','capability_removed'].includes(e.code)){toast('File belum bisa disimpan. Coba lagi sebentar.');return}}
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+text],{type:'text/csv;charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);toast('File sedang diunduh.')}
+  catch(e){toast('Unduhan tidak didukung di sini. Gunakan tombol Salin tabel lalu tempel ke Excel.',3800)}
+}
+
+/* ---------- HALAMAN GURU ---------- */
+let guruOK=false,gf={mp:'all',pid:'all',kelas:'all',mode:'all',sort:'at',dir:-1};
+function renderGuru(){
+  if(!guruOK)return guruGate();
+  const all=(store.rekap||[]).map(e=>({...e,...entScore(e),p:PAKET[e.pid-1]})).filter(e=>e.p);
+  const kelasList=[...new Set(all.map(e=>e.kelas).filter(Boolean))].sort();
+  const pakets=PAKET.filter(p=>gf.mp==='all'||mp(p)===gf.mp);
+  if(gf.pid!=='all'&&!pakets.some(p=>String(p.id)===gf.pid))gf.pid='all';
+  let rows=all.filter(e=>(gf.mp==='all'||mp(e.p)===gf.mp)&&(gf.pid==='all'||String(e.pid)===gf.pid)&&(gf.kelas==='all'||e.kelas===gf.kelas)&&(gf.mode==='all'||e.mode===gf.mode));
+  const key={name:e=>e.name.toLowerCase(),kelas:e=>e.kelas,tes:e=>e.pid,score:e=>e.score,used:e=>e.used,at:e=>e.at}[gf.sort]||(e=>e.at);
+  rows.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*gf.dir});
+  const sc=rows.map(e=>e.score),avg=sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0;
+  const kc={Istimewa:0,Baik:0,Memadai:0,Kurang:0};rows.forEach(e=>kc[katOf(e.score)]++);
+  const hist=(store.hist||[]).length,th=(k,l)=>`<th><button class="sortb" data-sort="${k}">${l}${gf.sort===k?(gf.dir>0?' ▲':' ▼'):''}</button></th>`;
+  const tesName=p=>`${MPN(p)} P${pno(p)}`;
+  let ana='';
+  if(gf.pid!=='all'&&rows.length){
+    const p=PAKET[+gf.pid-1],n=rows.length;
+    const st=p.soal.map((q,i)=>{const r=rows.filter(e=>e.marks[i]==='1').length;return {i,q,pct:Math.round(r/n*100)}});
+    const low=new Set(st.slice().sort((a,b)=>a.pct-b.pct).slice(0,5).map(x=>x.i));
+    const snip=h=>h.replace(/<[^>]+>/g,' ').replace(/\{(\d+)\/(\d+)\}/g,'$1/$2').replace(/\s+/g,' ').trim().slice(0,90);
+    ana=`<div class="panel"><h3>Analisis soal · ${esc(tesName(p))} ${esc(p.nama)} (${n} hasil)</h3>
+      <p class="gnote">Persentase siswa yang menjawab benar pada setiap nomor. Lima soal dengan persentase terendah ditandai merah dan perlu dibahas ulang di kelas.</p>
+      <div class="ana">${st.map(x=>`<div class="ana-r${low.has(x.i)?' low':''}"><b>${x.i+1}</b><div class="ana-m"><div class="ana-t"><span class="chip" style="background:${DCOL[x.q.d]};color:#fff">${DOM[x.q.d]}</span> <span class="ana-s">${esc(snip(x.q.q))}</span></div><div class="bar"><i style="width:${x.pct}%;background:${low.has(x.i)?'var(--bad)':'var(--ok)'}"></i></div></div><span class="ana-p">${x.pct}%</span></div>`).join('')}</div></div>`;
+  }
+  $('#scr-guru').innerHTML=`
+  <div class="topbar"><button class="btn ghost small" id="gBack">${I.left} Halaman awal</button><div class="brand"><span class="mark">∑</span>Rekap Nilai Guru</div></div>
+  <div class="panel"><h3>Tambah hasil siswa</h3>
+    <p class="gnote">Tempel kode hasil yang dikirim siswa (misalnya dari WhatsApp). Boleh banyak kode sekaligus, termasuk teks pesan di sekitarnya.</p>
+    <label class="sr" for="gCodes">Kode hasil siswa</label>
+    <textarea id="gCodes" rows="4" placeholder="Contoh: TKA.VDJ8MX...xxxx"></textarea>
+    <div class="gact"><button class="btn" id="gAdd">Tambahkan ke rekap</button><button class="btn ghost" id="gLocal"${hist?'':' disabled'}>Ambil hasil dari perangkat ini (${hist})</button></div>
+    <p class="gmsg" id="gMsg" role="status"></p></div>
+  <div class="gfilter">
+    <label>Mata ujian<select id="fMp"><option value="all">Semua</option>${Object.keys(MAPEL).map(k=>`<option value="${k}"${gf.mp===k?' selected':''}>${MAPEL[k].nama}</option>`).join('')}</select></label>
+    <label>Paket<select id="fPid"><option value="all">Semua paket</option>${pakets.map(p=>`<option value="${p.id}"${gf.pid===String(p.id)?' selected':''}>${esc(tesName(p))} · ${esc(p.nama)}</option>`).join('')}</select></label>
+    <label>Kelas<select id="fKelas"><option value="all">Semua kelas</option>${kelasList.map(k=>`<option${gf.kelas===k?' selected':''}>${esc(k)}</option>`).join('')}</select></label>
+    <label>Mode<select id="fMode"><option value="all">Semua</option><option value="U"${gf.mode==='U'?' selected':''}>Ujian</option><option value="L"${gf.mode==='L'?' selected':''}>Latihan</option></select></label>
+  </div>
+  <div class="statrow gstat">
+    <div class="stat"><b>${rows.length}</b><span>Hasil</span></div>
+    <div class="stat"><b>${rows.length?avg:'–'}</b><span>Rata-rata</span></div>
+    <div class="stat g"><b>${rows.length?Math.max(...sc):'–'}</b><span>Tertinggi</span></div>
+    <div class="stat r"><b>${rows.length?Math.min(...sc):'–'}</b><span>Terendah</span></div>
+    <div class="stat kats">${Object.keys(kc).map(k=>`<span>${k} <b>${kc[k]}</b></span>`).join('')}</div>
+  </div>
+  <div class="panel"><div class="gtop"><h3>Daftar nilai</h3><div class="gact"><button class="btn small ghost" id="gCopy"${rows.length?'':' disabled'}>Salin tabel (Excel)</button><button class="btn small" id="gCsv"${rows.length?'':' disabled'}>Unduh CSV</button></div></div>
+    ${rows.length?`<div class="gtable"><table class="dtab rtab"><thead><tr>${th('name','Nama')}${th('kelas','Kelas')}${th('tes','Tes')}<th>Mode</th>${th('score','Nilai')}<th>Kategori</th><th>B / S / K</th>${th('used','Waktu')}${th('at','Tanggal')}<th><span class="sr">Hapus</span></th></tr></thead><tbody>
+    ${rows.map(e=>`<tr><td class="tl">${esc(e.name)}</td><td>${esc(e.kelas)||'–'}</td><td>${esc(tesName(e.p))}</td><td>${e.mode==='U'?'Ujian':'Latihan'}</td><td><b>${e.score}</b></td><td><span class="kpill k-${katOf(e.score)}">${katOf(e.score)}</span></td><td>${e.right} / ${e.wrong} / ${e.empty}</td><td>${mmss(e.used)}</td><td>${new Date(e.at).toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td><td><button class="xdel" data-del="${esc(e.code)}" aria-label="Hapus hasil ${esc(e.name)}">✕</button></td></tr>`).join('')}
+    </tbody></table></div>`:`<p class="gnote" style="text-align:center;padding:18px 0">${all.length?'Tidak ada hasil yang cocok dengan saringan.':'Belum ada hasil. Tempel kode hasil siswa di kolom atas.'}</p>`}
+  </div>
+  ${gf.pid==='all'&&rows.length?'<p class="gnote" style="text-align:center">Pilih satu paket pada saringan untuk melihat analisis per nomor soal.</p>':ana}
+  <div class="panel gset"><h3>Pengaturan</h3><p class="gnote">Rekap tersimpan di browser perangkat ini saja. Unduh CSV secara berkala sebagai cadangan.</p>
+    <div class="gact"><button class="btn small ghost" id="gPin">Ganti PIN guru</button><button class="btn small ghost" id="gLock">Kunci halaman guru</button><button class="btn small warm" id="gClear"${all.length?'':' disabled'}>Hapus semua rekap</button></div></div>`;
+  $('#gBack').onclick=()=>renderHome();
+  $('#gAdd').onclick=()=>{const {out,bad}=readCodes($('#gCodes').value);const {n,dup}=addToRekap(out);
+    $('#gMsg').textContent=[n?`${n} hasil ditambahkan.`:'',dup?`${dup} kode sudah ada di rekap.`:'',bad.length?`${bad.length} kode tidak terbaca. Pastikan kode disalin utuh, dari TKA. sampai akhir.`:'',!n&&!dup&&!bad.length?'Kolom masih kosong.':''].filter(Boolean).join(' ');
+    if(n){$('#gCodes').value='';SND.ok();const msg=$('#gMsg').textContent;renderGuru();$('#gMsg').textContent=msg}};
+  $('#gLocal').onclick=()=>{const {out}=readCodes((store.hist||[]).join('\n'));const {n,dup}=addToRekap(out);renderGuru();$('#gMsg').textContent=`${n} hasil dari perangkat ini ditambahkan.${dup?` ${dup} sudah ada sebelumnya.`:''}`};
+  [['#fMp','mp'],['#fPid','pid'],['#fKelas','kelas'],['#fMode','mode']].forEach(([s,k])=>$(s).onchange=e=>{gf[k]=e.target.value;renderGuru()});
+  document.querySelectorAll('.sortb').forEach(b=>b.onclick=()=>{const k=b.dataset.sort;if(gf.sort===k)gf.dir*=-1;else{gf.sort=k;gf.dir=k==='name'||k==='kelas'||k==='tes'?1:-1}renderGuru()});
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>modal('Hapus hasil ini?','<p>Hasil ini akan dihapus dari rekap. Jika perlu, kode yang sama bisa ditempel lagi.</p>',[{t:'Batal',cls:'ghost'},{t:'Hapus',cls:'warm',fn:()=>{store.rekap=store.rekap.filter(e=>e.code!==b.dataset.del);persist();renderGuru()}}]));
+  const header=['Nama','Kelas','Mata Ujian','Paket','Nama Paket','Mode','Nilai','Kategori','Benar','Salah','Kosong','Durasi (menit)','Tanggal',...Array.from({length:N},(_,i)=>'No'+(i+1))];
+  const line=e=>[e.name,e.kelas,MPN(e.p),pno(e.p),e.p.nama,e.mode==='U'?'Ujian':'Latihan',e.score,katOf(e.score),e.right,e.wrong,e.empty,(e.used/60).toFixed(1).replace('.',','),new Date(e.at).toLocaleString('id-ID'),...[...e.marks].map(c=>c==='1'?1:c==='0'?0:'')];
+  if($('#gCopy'))$('#gCopy').onclick=()=>copyText([header,...rows.map(line)].map(r=>r.join('\t')).join('\n'),document.querySelector('.rtab'));
+  if($('#gCsv'))$('#gCsv').onclick=()=>{const q=v=>{v=String(v);return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+    saveFile(`rekap-tka-${new Date().toISOString().slice(0,10)}.csv`,[header,...rows.map(line)].map(r=>r.map(q).join(';')).join('\r\n'))};
+  $('#gPin').onclick=()=>{guruOK=false;store.pin=null;persist();renderGuru()};
+  $('#gLock').onclick=()=>{guruOK=false;renderHome()};
+  $('#gClear').onclick=()=>modal('Hapus semua rekap?','<p>Semua hasil di rekap akan dihapus dari perangkat ini dan tidak bisa dikembalikan. Unduh CSV terlebih dahulu jika masih diperlukan.</p>',[{t:'Batal',cls:'ghost'},{t:'Hapus semua',cls:'warm',fn:()=>{store.rekap=[];persist();renderGuru()}}]);
+  show('guru');
+}
+function guruGate(){
+  const setMode=!store.pin;
+  $('#scr-guru').innerHTML=`<div class="ready"><div class="ticket"><div class="ticket-top" style="background:#2B3A67"><div style="width:56px;flex:none">${owl('idle')}</div><div><h2>Halaman Guru</h2><p>${setMode?'Buat PIN agar siswa tidak membuka rekap nilai.':'Masukkan PIN guru untuk membuka rekap nilai.'}</p></div></div>
+    <div class="ticket-body"><form class="lform" id="fPin" novalidate>
+      <div class="field"><label for="pin1">${setMode?'PIN baru (4–6 angka)':'PIN guru'}</label><input id="pin1" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></div>
+      ${setMode?'<div class="field"><label for="pin2">Ulangi PIN</label><input id="pin2" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></div>':''}
+      <p class="ferr" id="pinErr" role="alert" hidden></p>
+      <div class="ready-actions">${setMode?'':'<button type="button" class="btn ghost small" id="pinForgot">Lupa PIN</button>'}<button type="button" class="btn ghost" id="pinBack">Kembali</button><button type="submit" class="btn warm">${setMode?'Simpan PIN':'Buka rekap'}</button></div>
+      <p class="gnote">PIN hanya tersimpan di perangkat ini dan berguna agar siswa tidak iseng membuka rekap. Rekap nilai tidak dikirim ke mana pun.</p>
+    </form></div></div></div>`;
+  const err=t=>{$('#pinErr').textContent=t;$('#pinErr').hidden=false;SND.no()};
+  $('#pinBack').onclick=()=>renderHome();
+  if($('#pinForgot'))$('#pinForgot').onclick=()=>modal('Atur ulang PIN?','<p>Untuk menjaga kerahasiaan nilai, mengatur ulang PIN juga <b>menghapus semua rekap</b> di perangkat ini. Hasil siswa bisa dimasukkan lagi dari kode hasilnya.</p>',[{t:'Batal',cls:'ghost'},{t:'Atur ulang',cls:'warm',fn:()=>{store.pin=null;store.rekap=[];persist();guruGate()}}]);
+  $('#fPin').onsubmit=e=>{e.preventDefault();const a=$('#pin1').value.trim();
+    if(!/^\d{4,6}$/.test(a))return err('PIN harus 4 sampai 6 angka.');
+    if(setMode){if(a!==$('#pin2').value.trim())return err('Kedua PIN belum sama.');store.pin=ck('pin'+a);persist();guruOK=true;SND.ok();renderGuru();return}
+    if(ck('pin'+a)!==store.pin)return err('PIN salah. Coba lagi.');
+    guruOK=true;SND.ok();renderGuru()};
+  $('#pin1').focus();show('guru');
 }
 
 /* ---------- konfeti ---------- */
