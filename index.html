@@ -2035,6 +2035,42 @@ function openKunci(pid){
   </body></html>`);
   win.document.close();
 }
+function soalCetak(q,no){
+  const t=typ(q);
+  const text=`<div class="qtext">${fmt(q.q)}</div>`;let h='';
+  if(t==='mc')h+='<p class="hint">Pilihlah <b>semua</b> jawaban yang tepat (bisa lebih dari satu).</p>';
+  if(t==='bs'){
+    h+=`<div class="bs"><div class="bs-h"><span>Pernyataan</span><span>Benar</span><span>Salah</span></div>`;
+    q.s.forEach(st=>{h+=`<div class="bs-r"><div class="bs-t">${fmt(st[0])}</div><div class="bs-b"><span class="bs-dot"></span>Benar</div><div class="bs-b"><span class="bs-dot"></span>Salah</div></div>`});
+    h+='</div>';
+  }else{
+    h+=`<div class="opts">`+q.o.map((o,k)=>`<div class="opt"><span class="let">${LET[k]}</span><span class="otx">${fmt(o)}</span></div>`).join('')+`</div>`;
+  }
+  return `<div class="pq"><div class="qhead"><span class="qno">Soal <b>${no}</b></span><span class="typechip">${TYP[t]}</span><span class="chip lv">${LVL[q.l]}</span></div>${(!q.f&&!q.x)?text+h:`<div class="split${q.x?' read':''}"><section class="ctx">${q.x?TEKS[q.x]:''}${q.f||''}</section><div class="qa">${text}${h}</div></div>`}</div>`;
+}
+function openNaskah(pid){
+  const p=PAKET[pid-1];if(!p)return;
+  const css=document.querySelector('style').innerHTML;
+  const win=window.open('','_blank');
+  if(!win){toast('Popup diblokir peramban. Izinkan popup untuk membuka naskah soal.',3800);return}
+  win.document.write(`<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Naskah Soal ${esc(MPN(p))} Paket ${esc(pno(p))}</title>
+  <style>${css}
+    body{background:#fff;color:var(--ink);max-width:800px;margin:24px auto;padding:0 16px}
+    .opt,.bs-b{cursor:default}
+    .pq{margin:0 0 26px;page-break-inside:avoid}
+    .pinfo{display:flex;flex-wrap:wrap;gap:6px 26px;margin:10px 0 22px;font-weight:700;border:2px solid var(--line);border-radius:14px;padding:10px 14px}
+    .noprint{margin:16px 0}
+    .noprint button{padding:10px 18px;font-size:1rem;cursor:pointer}
+    @media print{.noprint{display:none}}
+  </style></head><body>
+    <h1 style="font-family:var(--fd)">${esc(MPN(p))} Paket ${esc(pno(p))} · ${esc(p.nama)}</h1>
+    <p style="color:var(--muted);font-weight:700;margin-top:2px">${esc(MAPEL[mp(p)].nama)} · ${p.soal.length} soal</p>
+    <div class="pinfo"><span>Nama: ________________________</span><span>Kelas: ______</span><span>No. Absen: ______</span></div>
+    <p class="noprint"><button onclick="window.print()">Cetak / Simpan sebagai PDF</button></p>
+    ${p.soal.map((q,i)=>soalCetak(q,i+1)).join('')}
+  </body></html>`);
+  win.document.close();
+}
 async function copyText(txt,el){
   try{await navigator.clipboard.writeText(txt);toast('Tersalin. Tinggal tempel (paste) di tujuan.');return true}
   catch(e){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
@@ -2081,10 +2117,11 @@ function renderGuru(){
     <textarea id="gCodes" rows="4" placeholder="Contoh: TKA.VDJ8MX...xxxx"></textarea>
     <div class="gact"><button class="btn" id="gAdd">Tambahkan ke rekap</button><button class="btn ghost" id="gLocal"${hist?'':' disabled'}>Ambil hasil dari perangkat ini (${hist})</button></div>
     <p class="gmsg" id="gMsg" role="status"></p></div>
-  <div class="panel"><h3>Kunci Jawaban untuk Koreksi Kertas</h3>
-    <p class="gnote">Kunci ini memakai urutan huruf A–D yang tetap (tidak diacak seperti di layar), jadi bisa langsung dipakai untuk mengoreksi lembar jawaban siswa yang mengerjakan di kertas.</p>
+  <div class="panel"><h3>Kunci Jawaban &amp; Naskah Soal untuk Koreksi Kertas</h3>
+    <p class="gnote">Naskah soal dan kunci jawaban di sini memakai urutan pilihan A–D yang sama (tetap, tidak diacak), jadi keduanya otomatis cocok untuk ujian di kertas.</p>
     <div class="gact"><label class="sr" for="kkPid">Pilih paket</label>
       <select id="kkPid">${PAKET.map(p=>`<option value="${p.id}"${kkPid===p.id?' selected':''}>${esc(MPN(p))} Paket ${esc(pno(p))} · ${esc(p.nama)}</option>`).join('')}</select>
+      <button class="btn small ghost" id="nsPrint">Buka &amp; Cetak Naskah Soal</button>
       <button class="btn small" id="kkPrint">Buka &amp; Cetak Kunci Jawaban</button></div>
   </div>
   <div class="gfilter">
@@ -2115,6 +2152,7 @@ function renderGuru(){
   $('#gLocal').onclick=()=>{const {out}=readCodes((store.hist||[]).join('\n'));const {n,dup}=addToRekap(out);renderGuru();$('#gMsg').textContent=`${n} hasil dari perangkat ini ditambahkan.${dup?` ${dup} sudah ada sebelumnya.`:''}`};
   $('#kkPid').onchange=e=>kkPid=+e.target.value;
   $('#kkPrint').onclick=()=>openKunci(kkPid);
+  $('#nsPrint').onclick=()=>openNaskah(kkPid);
   [['#fMp','mp'],['#fPid','pid'],['#fKelas','kelas'],['#fMode','mode']].forEach(([s,k])=>$(s).onchange=e=>{gf[k]=e.target.value;renderGuru()});
   document.querySelectorAll('.sortb').forEach(b=>b.onclick=()=>{const k=b.dataset.sort;if(gf.sort===k)gf.dir*=-1;else{gf.sort=k;gf.dir=k==='name'||k==='kelas'||k==='tes'?1:-1}renderGuru()});
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>modal('Hapus hasil ini?','<p>Hasil ini akan dihapus dari rekap. Jika perlu, kode yang sama bisa ditempel lagi.</p>',[{t:'Batal',cls:'ghost'},{t:'Hapus',cls:'warm',fn:()=>{store.rekap=store.rekap.filter(e=>e.code!==b.dataset.del);persist();renderGuru()}}]));
