@@ -2002,6 +2002,39 @@ function addToRekap(list){
   list.forEach(e=>{if(have.has(e.code))dup++;else{store.rekap.push(e);have.add(e.code);n++}});
   persist();return {n,dup};
 }
+function openKunci(pid){
+  const p=PAKET[pid-1];if(!p)return;
+  const rows=p.soal.map((q,i)=>{
+    const t=typ(q);
+    const jwb=t==='pg'?LET[0]:t==='mc'?q.k.slice().sort((a,b)=>a-b).map(k=>LET[k]).join(', '):q.s.map(st=>st[1]?'B':'S').join('-');
+    return {no:i+1,dom:DOM[q.d],tipe:TYP[t],jwb};
+  });
+  const win=window.open('','_blank');
+  if(!win){toast('Popup diblokir peramban. Izinkan popup untuk membuka kunci jawaban.',3800);return}
+  win.document.write(`<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Kunci Jawaban ${esc(MPN(p))} Paket ${esc(pno(p))}</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:24px;max-width:720px}
+    h1{font-size:1.25rem;margin:0 0 2px}
+    h2{font-size:.95rem;margin:0 0 16px;color:#444;font-weight:600}
+    table{border-collapse:collapse;width:100%}
+    th,td{border:1px solid #999;padding:6px 8px;font-size:.92rem;text-align:left}
+    th{background:#eee}
+    td.no,th.no{text-align:center;width:44px}
+    td.jwb,th.jwb{text-align:center;font-weight:700;white-space:nowrap}
+    .legend{margin-top:14px;font-size:.82rem;color:#555}
+    .noprint button{padding:10px 18px;font-size:1rem;cursor:pointer;margin-top:20px}
+    @media print{.noprint{display:none}}
+  </style></head><body>
+    <h1>Kunci Jawaban — ${esc(MPN(p))} Paket ${esc(pno(p))}</h1>
+    <h2>${esc(MAPEL[mp(p)].nama)} · ${esc(p.nama)} · urutan pilihan A–D tetap (tidak diacak)</h2>
+    <table><thead><tr><th class="no">No</th><th>Materi</th><th>Tipe</th><th class="jwb">Kunci Jawaban</th></tr></thead><tbody>
+    ${rows.map(r=>`<tr><td class="no">${r.no}</td><td>${esc(r.dom)}</td><td>${esc(r.tipe)}</td><td class="jwb">${esc(r.jwb)}</td></tr>`).join('')}
+    </tbody></table>
+    <p class="legend">PG kompleks (mc): tulis semua huruf yang tepat. PG kompleks kategori (bs): B = Benar, S = Salah, sesuai urutan pernyataan pada naskah soal.</p>
+    <p class="noprint"><button onclick="window.print()">Cetak / Simpan sebagai PDF</button></p>
+  </body></html>`);
+  win.document.close();
+}
 async function copyText(txt,el){
   try{await navigator.clipboard.writeText(txt);toast('Tersalin. Tinggal tempel (paste) di tujuan.');return true}
   catch(e){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
@@ -2016,7 +2049,7 @@ async function saveFile(name,text){
 }
 
 /* ---------- HALAMAN GURU ---------- */
-let guruOK=false,gf={mp:'all',pid:'all',kelas:'all',mode:'all',sort:'at',dir:-1};
+let guruOK=false,gf={mp:'all',pid:'all',kelas:'all',mode:'all',sort:'at',dir:-1},kkPid=PAKET[0].id;
 function renderGuru(){
   if(!guruOK)return guruGate();
   const all=(store.rekap||[]).map(e=>({...e,...entScore(e),p:PAKET[e.pid-1]})).filter(e=>e.p);
@@ -2048,6 +2081,12 @@ function renderGuru(){
     <textarea id="gCodes" rows="4" placeholder="Contoh: TKA.VDJ8MX...xxxx"></textarea>
     <div class="gact"><button class="btn" id="gAdd">Tambahkan ke rekap</button><button class="btn ghost" id="gLocal"${hist?'':' disabled'}>Ambil hasil dari perangkat ini (${hist})</button></div>
     <p class="gmsg" id="gMsg" role="status"></p></div>
+  <div class="panel"><h3>Kunci Jawaban untuk Koreksi Kertas</h3>
+    <p class="gnote">Kunci ini memakai urutan huruf A–D yang tetap (tidak diacak seperti di layar), jadi bisa langsung dipakai untuk mengoreksi lembar jawaban siswa yang mengerjakan di kertas.</p>
+    <div class="gact"><label class="sr" for="kkPid">Pilih paket</label>
+      <select id="kkPid">${PAKET.map(p=>`<option value="${p.id}"${kkPid===p.id?' selected':''}>${esc(MPN(p))} Paket ${esc(pno(p))} · ${esc(p.nama)}</option>`).join('')}</select>
+      <button class="btn small" id="kkPrint">Buka &amp; Cetak Kunci Jawaban</button></div>
+  </div>
   <div class="gfilter">
     <label>Mata ujian<select id="fMp"><option value="all">Semua</option>${Object.keys(MAPEL).map(k=>`<option value="${k}"${gf.mp===k?' selected':''}>${MAPEL[k].nama}</option>`).join('')}</select></label>
     <label>Paket<select id="fPid"><option value="all">Semua paket</option>${pakets.map(p=>`<option value="${p.id}"${gf.pid===String(p.id)?' selected':''}>${esc(tesName(p))} · ${esc(p.nama)}</option>`).join('')}</select></label>
@@ -2074,6 +2113,8 @@ function renderGuru(){
     $('#gMsg').textContent=[n?`${n} hasil ditambahkan.`:'',dup?`${dup} kode sudah ada di rekap.`:'',bad.length?`${bad.length} kode tidak terbaca. Pastikan kode disalin utuh, dari TKA. sampai akhir.`:'',!n&&!dup&&!bad.length?'Kolom masih kosong.':''].filter(Boolean).join(' ');
     if(n){$('#gCodes').value='';SND.ok();const msg=$('#gMsg').textContent;renderGuru();$('#gMsg').textContent=msg}};
   $('#gLocal').onclick=()=>{const {out}=readCodes((store.hist||[]).join('\n'));const {n,dup}=addToRekap(out);renderGuru();$('#gMsg').textContent=`${n} hasil dari perangkat ini ditambahkan.${dup?` ${dup} sudah ada sebelumnya.`:''}`};
+  $('#kkPid').onchange=e=>kkPid=+e.target.value;
+  $('#kkPrint').onclick=()=>openKunci(kkPid);
   [['#fMp','mp'],['#fPid','pid'],['#fKelas','kelas'],['#fMode','mode']].forEach(([s,k])=>$(s).onchange=e=>{gf[k]=e.target.value;renderGuru()});
   document.querySelectorAll('.sortb').forEach(b=>b.onclick=()=>{const k=b.dataset.sort;if(gf.sort===k)gf.dir*=-1;else{gf.sort=k;gf.dir=k==='name'||k==='kelas'||k==='tes'?1:-1}renderGuru()});
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>modal('Hapus hasil ini?','<p>Hasil ini akan dihapus dari rekap. Jika perlu, kode yang sama bisa ditempel lagi.</p>',[{t:'Batal',cls:'ghost'},{t:'Hapus',cls:'warm',fn:()=>{store.rekap=store.rekap.filter(e=>e.code!==b.dataset.del);persist();renderGuru()}}]));
